@@ -1,10 +1,10 @@
-/* ==================================================
+/* =========================================================
    ELEMENTOS
-================================================== */
+========================================================= */
 
-const opening = document.getElementById("opening");
+const loader = document.getElementById("loader");
 
-const openInvitation = document.getElementById("openInvitation");
+const loaderText = document.getElementById("loaderText");
 
 const music = document.getElementById("music");
 
@@ -12,34 +12,217 @@ const musicButton = document.getElementById("musicButton");
 
 const locationButton = document.getElementById("locationButton");
 
-/* ==================================================
-   APERTURA
-================================================== */
+const screens = [...document.querySelectorAll(".screen")];
 
-openInvitation.addEventListener("click", () => {
-  opening.classList.add("hide");
+const progressDots = [...document.querySelectorAll(".progress-dot")];
 
-  document.body.classList.remove("locked");
+const currentNumber = document.getElementById("currentNumber");
 
-  music.volume = 0.35;
+/* =========================================================
+   ESTADO
+========================================================= */
 
-  music
-    .play()
-    .then(() => {
-      musicButton.classList.add("playing");
-    })
-    .catch(() => {});
+let currentScreen = 0;
+
+let musicStarted = false;
+
+/* =========================================================
+   IMÁGENES IMPORTANTES
+========================================================= */
+
+const imagesToPreload = [
+  "img/portada.jpeg",
+
+  "img/foto1.jpeg",
+
+  "img/foto2.jpeg",
+
+  "img/foto3.jpeg",
+
+  "img/foto4.jpeg",
+];
+
+/* =========================================================
+   PRELOAD
+========================================================= */
+
+function preloadImage(src) {
+  return new Promise((resolve) => {
+    const image = new Image();
+
+    image.onload = resolve;
+
+    image.onerror = resolve;
+
+    image.src = src;
+  });
+}
+
+async function prepareInvitation() {
+  try {
+    loaderText.textContent = "Preparando nuestra historia...";
+
+    /*
+     * Primero aseguramos
+     * la imagen principal.
+     */
+
+    await preloadImage(imagesToPreload[0]);
+
+    loaderText.textContent = "Casi estamos listos...";
+
+    /*
+     * Cargamos las demás
+     * imágenes.
+     */
+
+    await Promise.all(imagesToPreload.slice(1).map(preloadImage));
+
+    loaderText.textContent = "Listo ✦";
+  } catch (error) {
+    console.warn("Error precargando imágenes:", error);
+  }
+
+  /*
+   * Damos un pequeño tiempo
+   * para que la entrada
+   * no sea brusca.
+   */
+
+  setTimeout(() => {
+    loader.classList.add("hidden");
+  }, 500);
+}
+
+prepareInvitation();
+
+/* =========================================================
+   MÚSICA
+========================================================= */
+
+function startMusic() {
+  /*
+   * Evitamos múltiples
+   * llamadas.
+   */
+
+  if (musicStarted) {
+    return;
+  }
+
+  /*
+   * Importante:
+   * marcamos que ya intentamos
+   * iniciar la música.
+   */
+
+  musicStarted = true;
+
+  music.volume = 0;
+
+  /*
+   * play() debe ejecutarse
+   * dentro de una interacción
+   * del usuario.
+   */
+
+  const playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        musicButton.classList.add("playing");
+
+        /*
+         * Fade in.
+         */
+
+        let volume = 0;
+
+        const fade = setInterval(() => {
+          volume += 0.025;
+
+          music.volume = Math.min(volume, 0.35);
+
+          if (volume >= 0.35) {
+            clearInterval(fade);
+          }
+        }, 60);
+      })
+      .catch(() => {
+        /*
+         * Si el navegador
+         * bloquea la reproducción,
+         * permitimos que otro
+         * gesto vuelva a intentarlo.
+         */
+
+        musicStarted = false;
+      });
+  }
+}
+
+/* =========================================================
+   ACTIVAR AUDIO CON EL PRIMER GESTO
+========================================================= */
+
+/*
+ * pointerdown funciona para:
+ *
+ * - Android
+ * - iPhone
+ * - mouse
+ * - tablet
+ * - stylus
+ */
+
+document.addEventListener("pointerdown", startMusic, {
+  once: true,
+  passive: true,
 });
 
-/* ==================================================
-   MÚSICA
-================================================== */
+/*
+ * Respaldo para touch.
+ */
+
+document.addEventListener("touchmove", startMusic, {
+  once: true,
+  passive: true,
+});
+
+/*
+ * Respaldo para rueda.
+ */
+
+document.addEventListener("wheel", startMusic, {
+  once: true,
+  passive: true,
+});
+
+/* =========================================================
+   BOTÓN MÚSICA
+========================================================= */
 
 musicButton.addEventListener("click", () => {
   if (music.paused) {
-    music.play();
+    musicStarted = true;
 
-    musicButton.classList.add("playing");
+    music.volume = 0.35;
+
+    music
+      .play()
+      .then(() => {
+        musicButton.classList.add("playing");
+      })
+      .catch(() => {
+        /*
+         * No hacemos nada.
+         * El navegador puede
+         * bloquearlo si no
+         * considera válida
+         * la interacción.
+         */
+      });
   } else {
     music.pause();
 
@@ -47,223 +230,183 @@ musicButton.addEventListener("click", () => {
   }
 });
 
-/* ==================================================
-   UBICACIÓN
-================================================== */
+/* =========================================================
+   OBSERVADOR DE PANTALLAS
+========================================================= */
 
-locationButton.addEventListener("click", () => {
-  const location = document.getElementById("ubicacion");
-
-  location.scrollIntoView({
-    behavior: "smooth",
-  });
-});
-
-/* ==================================================
-   REVEAL
-================================================== */
-
-const revealElements = document.querySelectorAll(
-  ".reveal-left, .reveal-right, .reveal",
-);
-
-const observer = new IntersectionObserver(
+const screenObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-
-        observer.unobserve(entry.target);
+      if (!entry.isIntersecting) {
+        return;
       }
+
+      const index = screens.indexOf(entry.target);
+
+      if (index === -1) {
+        return;
+      }
+
+      activateScreen(index);
     });
   },
   {
-    threshold: 0.15,
+    threshold: 0.65,
   },
 );
 
-revealElements.forEach((element) => {
-  observer.observe(element);
+screens.forEach((screen) => {
+  screenObserver.observe(screen);
 });
 
-/* ==================================================
-   PARTÍCULAS
-================================================== */
+/* =========================================================
+   ACTIVAR PANTALLA
+========================================================= */
 
-function createParticles(selector, amount) {
-  const container = document.querySelector(selector);
+function activateScreen(index) {
+  currentScreen = index;
 
-  if (!container) {
-    return;
-  }
+  /*
+   * Número
+   */
 
-  for (let i = 0; i < amount; i++) {
-    const particle = document.createElement("span");
+  currentNumber.textContent = String(index + 1).padStart(2, "0");
 
-    particle.className = "particle";
+  /*
+   * Puntos
+   */
 
-    particle.style.left = `${Math.random() * 100}%`;
+  progressDots.forEach((dot, dotIndex) => {
+    dot.classList.toggle("active", dotIndex === index);
+  });
 
-    particle.style.top = `${Math.random() * 100}%`;
+  /*
+   * Solo una pantalla
+   * queda activa.
+   */
 
-    particle.style.setProperty("--duration", `${4 + Math.random() * 6}s`);
-
-    particle.style.setProperty("--delay", `${Math.random() * 5}s`);
-
-    container.appendChild(particle);
-  }
-}
-
-createParticles(".opening-particles", 25);
-
-createParticles(".hero-particles", 30);
-
-createParticles(".quote-particles", 25);
-
-createParticles(".date-particles", 20);
-
-createParticles(".love-particles", 30);
-
-/* ==================================================
-   PARALLAX
-================================================== */
-
-const photos = document.querySelectorAll(".story-photo img");
-
-function parallax() {
-  photos.forEach((image) => {
-    const parent = image.closest(".story-photo");
-
-    const rect = parent.getBoundingClientRect();
-
-    const screen = window.innerHeight;
-
-    const center = rect.top + rect.height / 2;
-
-    const movement = (center - screen / 2) * 0.06;
-
-    if (rect.bottom > 0 && rect.top < screen) {
-      image.style.transform = `translateY(${movement}px) scale(1.06)`;
-    }
+  screens.forEach((screen, screenIndex) => {
+    screen.classList.toggle("active", screenIndex === index);
   });
 }
 
-window.addEventListener("scroll", parallax, {
-  passive: true,
+/* =========================================================
+   NAVEGACIÓN DE LOS PUNTOS
+========================================================= */
+
+progressDots.forEach((dot, index) => {
+  dot.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    screens[index].scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
 });
 
-/* ==================================================
-   HERO PARALLAX
-================================================== */
+/* =========================================================
+   BOTÓN UBICACIÓN
+========================================================= */
 
-const heroBackground = document.querySelector(".hero-background");
+locationButton.addEventListener("click", () => {
+  /*
+   * La iglesia es la
+   * pantalla 03.
+   */
 
-window.addEventListener(
-  "scroll",
-  () => {
-    const scroll = window.scrollY;
+  screens[2].scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+});
 
-    if (scroll < window.innerHeight) {
-      heroBackground.style.transform = `translateY(${
-        scroll * 0.12
-      }px) scale(1.06)`;
-    }
-  },
-  {
-    passive: true,
-  },
-);
+/* =========================================================
+   PRECARGA PROGRESIVA
+========================================================= */
 
-/* ==================================================
-   OCULTAR INDICADOR
-================================================== */
+const progressiveImages = {
+  0: ["img/foto1.jpeg"],
 
-const scrollHint = document.querySelector(".scroll-hint");
+  1: ["img/foto3.jpeg"],
 
-window.addEventListener(
-  "scroll",
-  () => {
-    if (window.scrollY > window.innerHeight * 0.2) {
-      scrollHint.style.opacity = "0";
-    } else {
-      scrollHint.style.opacity = "1";
-    }
-  },
-  {
-    passive: true,
-  },
-);
+  2: ["img/foto2.jpeg"],
 
-/* ==================================================
-   CUENTA REGRESIVA
-================================================== */
+  3: ["img/foto4.jpeg"],
 
-const weddingDate = new Date("December 20, 2026 17:00:00").getTime();
+  4: ["img/portada.jpeg"],
+};
 
-function updateCountdown() {
-  const now = Date.now();
+function preloadNext(index) {
+  const images = progressiveImages[index];
 
-  const difference = weddingDate - now;
-
-  if (difference <= 0) {
-    setNumber("days", 0);
-
-    setNumber("hours", 0);
-
-    setNumber("minutes", 0);
-
-    setNumber("seconds", 0);
-
+  if (!images) {
     return;
   }
 
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  images.forEach((src) => {
+    const image = new Image();
 
-  const hours = Math.floor(difference / (1000 * 60 * 60)) % 24;
-
-  const minutes = Math.floor(difference / (1000 * 60)) % 60;
-
-  const seconds = Math.floor(difference / 1000) % 60;
-
-  setNumber("days", days);
-
-  setNumber("hours", hours);
-
-  setNumber("minutes", minutes);
-
-  setNumber("seconds", seconds);
-}
-
-function setNumber(id, value) {
-  const element = document.getElementById(id);
-
-  const formatted = String(value).padStart(2, "0");
-
-  if (element.textContent !== formatted) {
-    element.parentElement.classList.remove("tick");
-
-    void element.parentElement.offsetWidth;
-
-    element.parentElement.classList.add("tick");
-  }
-
-  element.textContent = formatted;
-}
-
-updateCountdown();
-
-setInterval(updateCountdown, 1000);
-
-/* ==================================================
-   CURSOR DE LUZ
-================================================== */
-
-const cursor = document.querySelector(".cursor-glow");
-
-if (window.matchMedia("(pointer:fine)").matches) {
-  document.addEventListener("mousemove", (event) => {
-    cursor.style.left = `${event.clientX}px`;
-
-    cursor.style.top = `${event.clientY}px`;
+    image.src = src;
   });
 }
+
+const progressiveObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      const index = screens.indexOf(entry.target);
+
+      preloadNext(index);
+    });
+  },
+  {
+    threshold: 0.2,
+  },
+);
+
+screens.forEach((screen) => {
+  progressiveObserver.observe(screen);
+});
+
+/* =========================================================
+   SOPORTE PARA TECLADO
+========================================================= */
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+    return;
+  }
+
+  event.preventDefault();
+
+  let next = currentScreen;
+
+  if (event.key === "ArrowDown") {
+    next++;
+  } else {
+    next--;
+  }
+
+  next = Math.max(0, Math.min(screens.length - 1, next));
+
+  screens[next].scrollIntoView({
+    behavior: "smooth",
+  });
+
+  /*
+   * Una pulsación también
+   * cuenta como interacción.
+   */
+
+  startMusic();
+});
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+activateScreen(0);
