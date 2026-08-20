@@ -12,6 +12,10 @@ const musicButton = document.getElementById("musicButton");
 
 const locationButton = document.getElementById("locationButton");
 
+const floatingControls = document.getElementById("floatingControls");
+
+const audioTriggerZone = document.getElementById("audioTriggerZone");
+
 const screens = [...document.querySelectorAll(".screen")];
 
 const progressDots = [...document.querySelectorAll(".progress-dot")];
@@ -27,10 +31,10 @@ let currentScreen = 0;
 let musicStarted = false;
 
 /* =========================================================
-   IMÁGENES IMPORTANTES
+   IMÁGENES
 ========================================================= */
 
-const imagesToPreload = [
+const images = [
   "img/portada.jpeg",
 
   "img/foto1.jpeg",
@@ -59,35 +63,23 @@ function preloadImage(src) {
 }
 
 async function prepareInvitation() {
-  try {
-    loaderText.textContent = "Preparando nuestra historia...";
-
-    /*
-     * Primero aseguramos
-     * la imagen principal.
-     */
-
-    await preloadImage(imagesToPreload[0]);
-
-    loaderText.textContent = "Casi estamos listos...";
-
-    /*
-     * Cargamos las demás
-     * imágenes.
-     */
-
-    await Promise.all(imagesToPreload.slice(1).map(preloadImage));
-
-    loaderText.textContent = "Listo ✦";
-  } catch (error) {
-    console.warn("Error precargando imágenes:", error);
-  }
+  loaderText.textContent = "Preparando nuestra historia...";
 
   /*
-   * Damos un pequeño tiempo
-   * para que la entrada
-   * no sea brusca.
+   * La portada primero.
    */
+
+  await preloadImage(images[0]);
+
+  loaderText.textContent = "Un momento...";
+
+  /*
+   * Después las demás.
+   */
+
+  await Promise.all(images.slice(1).map(preloadImage));
+
+  loaderText.textContent = "Todo listo ✦";
 
   setTimeout(() => {
     loader.classList.add("hidden");
@@ -100,134 +92,172 @@ prepareInvitation();
    MÚSICA
 ========================================================= */
 
-function startMusic() {
-  /*
-   * Evitamos múltiples
-   * llamadas.
-   */
-
+async function startMusic() {
   if (musicStarted) {
-    return;
+    return true;
   }
 
-  /*
-   * Importante:
-   * marcamos que ya intentamos
-   * iniciar la música.
-   */
+  try {
+    music.volume = 0;
 
-  musicStarted = true;
+    /*
+     * Esta llamada debe ocurrir
+     * como consecuencia de una
+     * interacción real del usuario.
+     */
 
-  music.volume = 0;
+    await music.play();
 
-  /*
-   * play() debe ejecutarse
-   * dentro de una interacción
-   * del usuario.
-   */
+    musicStarted = true;
 
-  const playPromise = music.play();
+    floatingControls.classList.add("visible");
 
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => {
-        musicButton.classList.add("playing");
+    musicButton.classList.add("playing");
 
-        /*
-         * Fade in.
-         */
+    /*
+     * Fade in.
+     */
 
-        let volume = 0;
+    let volume = 0;
 
-        const fade = setInterval(() => {
-          volume += 0.025;
+    const fade = setInterval(() => {
+      volume += 0.025;
 
-          music.volume = Math.min(volume, 0.35);
+      music.volume = Math.min(volume, 0.35);
 
-          if (volume >= 0.35) {
-            clearInterval(fade);
-          }
-        }, 60);
-      })
-      .catch(() => {
-        /*
-         * Si el navegador
-         * bloquea la reproducción,
-         * permitimos que otro
-         * gesto vuelva a intentarlo.
-         */
+      if (volume >= 0.35) {
+        clearInterval(fade);
+      }
+    }, 60);
 
-        musicStarted = false;
-      });
+    return true;
+  } catch (error) {
+    /*
+     * El navegador puede
+     * rechazar la reproducción.
+     *
+     * No marcamos musicStarted
+     * para poder volver a intentarlo.
+     */
+
+    console.warn("El navegador bloqueó el audio:", error);
+
+    return false;
   }
 }
 
 /* =========================================================
-   ACTIVAR AUDIO CON EL PRIMER GESTO
+   ZONA INVISIBLE DE LA PRIMERA PANTALLA
 ========================================================= */
 
 /*
- * pointerdown funciona para:
+ * Este es el punto importante.
  *
- * - Android
- * - iPhone
- * - mouse
- * - tablet
- * - stylus
+ * La zona ocupa:
+ *
+ * width: 100%
+ * height: 50%
+ *
+ * pero es invisible.
+ *
+ * El usuario solamente ve:
+ *
+ * DESLIZA PARA COMENZAR
+ *
+ * al interactuar en esa zona
+ * iniciamos la música.
  */
 
-document.addEventListener("pointerdown", startMusic, {
-  once: true,
-  passive: true,
-});
+audioTriggerZone.addEventListener(
+  "pointerdown",
+  (event) => {
+    startMusic();
+  },
+  {
+    passive: true,
+  },
+);
 
 /*
- * Respaldo para touch.
+ * También detectamos el inicio
+ * del movimiento del dedo.
  */
 
-document.addEventListener("touchmove", startMusic, {
-  once: true,
-  passive: true,
-});
+audioTriggerZone.addEventListener(
+  "touchstart",
+  () => {
+    startMusic();
+  },
+  {
+    passive: true,
+  },
+);
 
 /*
- * Respaldo para rueda.
+ * Si comienza un swipe,
+ * también intentamos iniciar
+ * la música.
  */
 
-document.addEventListener("wheel", startMusic, {
-  once: true,
-  passive: true,
-});
+audioTriggerZone.addEventListener(
+  "touchmove",
+  () => {
+    startMusic();
+  },
+  {
+    passive: true,
+  },
+);
 
 /* =========================================================
-   BOTÓN MÚSICA
+   RESPALDO GLOBAL PARA EL PRIMER GESTO
 ========================================================= */
 
-musicButton.addEventListener("click", () => {
+document.addEventListener(
+  "pointerdown",
+  () => {
+    if (!musicStarted) {
+      startMusic();
+    }
+  },
+  {
+    once: true,
+    passive: true,
+  },
+);
+
+/* =========================================================
+   BOTÓN DE MÚSICA
+========================================================= */
+
+musicButton.addEventListener("click", async () => {
   if (music.paused) {
-    musicStarted = true;
+    const started = await startMusic();
 
-    music.volume = 0.35;
-
-    music
-      .play()
-      .then(() => {
-        musicButton.classList.add("playing");
-      })
-      .catch(() => {
-        /*
-         * No hacemos nada.
-         * El navegador puede
-         * bloquearlo si no
-         * considera válida
-         * la interacción.
-         */
-      });
+    if (started) {
+      music.volume = 0.35;
+    }
   } else {
     music.pause();
 
     musicButton.classList.remove("playing");
   }
+});
+
+/* =========================================================
+   BOTÓN DE UBICACIÓN
+========================================================= */
+
+locationButton.addEventListener("click", () => {
+  /*
+   * Pantalla 03:
+   * Iglesia.
+   */
+
+  screens[2].scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
 });
 
 /* =========================================================
@@ -266,24 +296,11 @@ screens.forEach((screen) => {
 function activateScreen(index) {
   currentScreen = index;
 
-  /*
-   * Número
-   */
-
   currentNumber.textContent = String(index + 1).padStart(2, "0");
-
-  /*
-   * Puntos
-   */
 
   progressDots.forEach((dot, dotIndex) => {
     dot.classList.toggle("active", dotIndex === index);
   });
-
-  /*
-   * Solo una pantalla
-   * queda activa.
-   */
 
   screens.forEach((screen, screenIndex) => {
     screen.classList.toggle("active", screenIndex === index);
@@ -291,7 +308,7 @@ function activateScreen(index) {
 }
 
 /* =========================================================
-   NAVEGACIÓN DE LOS PUNTOS
+   PUNTOS DE NAVEGACIÓN
 ========================================================= */
 
 progressDots.forEach((dot, index) => {
@@ -306,26 +323,10 @@ progressDots.forEach((dot, index) => {
 });
 
 /* =========================================================
-   BOTÓN UBICACIÓN
-========================================================= */
-
-locationButton.addEventListener("click", () => {
-  /*
-   * La iglesia es la
-   * pantalla 03.
-   */
-
-  screens[2].scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
-});
-
-/* =========================================================
    PRECARGA PROGRESIVA
 ========================================================= */
 
-const progressiveImages = {
+const nextImages = {
   0: ["img/foto1.jpeg"],
 
   1: ["img/foto3.jpeg"],
@@ -335,23 +336,25 @@ const progressiveImages = {
   3: ["img/foto4.jpeg"],
 
   4: ["img/portada.jpeg"],
+
+  5: ["img/portada.jpeg"],
 };
 
-function preloadNext(index) {
-  const images = progressiveImages[index];
+function preloadNextImages(index) {
+  const sources = nextImages[index];
 
-  if (!images) {
+  if (!sources) {
     return;
   }
 
-  images.forEach((src) => {
+  sources.forEach((source) => {
     const image = new Image();
 
-    image.src = src;
+    image.src = source;
   });
 }
 
-const progressiveObserver = new IntersectionObserver(
+const preloadObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
@@ -360,7 +363,7 @@ const progressiveObserver = new IntersectionObserver(
 
       const index = screens.indexOf(entry.target);
 
-      preloadNext(index);
+      preloadNextImages(index);
     });
   },
   {
@@ -369,11 +372,11 @@ const progressiveObserver = new IntersectionObserver(
 );
 
 screens.forEach((screen) => {
-  progressiveObserver.observe(screen);
+  preloadObserver.observe(screen);
 });
 
 /* =========================================================
-   SOPORTE PARA TECLADO
+   TECLADO
 ========================================================= */
 
 document.addEventListener("keydown", (event) => {
@@ -396,11 +399,6 @@ document.addEventListener("keydown", (event) => {
   screens[next].scrollIntoView({
     behavior: "smooth",
   });
-
-  /*
-   * Una pulsación también
-   * cuenta como interacción.
-   */
 
   startMusic();
 });

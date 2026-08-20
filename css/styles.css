@@ -15,10 +15,10 @@
   --cream-dark: #e8d9c9;
 
   --brown: #403832;
-  --brown-light: #756b62;
+  --brown-soft: #756a61;
 
   --gold: #c8a574;
-  --gold-light: #e3c99e;
+  --gold-light: #e6cea7;
 
   --white: #ffffff;
 
@@ -35,9 +35,11 @@ html {
   background:
     var(--brown);
 
-  scroll-behavior: smooth;
+  scroll-behavior:
+    smooth;
 
-  scroll-snap-type: y mandatory;
+  scroll-snap-type:
+    y mandatory;
 
 }
 
@@ -63,9 +65,15 @@ body {
 }
 
 
-body.no-scroll {
+h1,
+h2 {
 
-  overflow: hidden;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-weight:
+    400;
 
 }
 
@@ -81,21 +89,11 @@ a {
 
 img {
 
-  display: block;
+  display:
+    block;
 
-  max-width: 100%;
-
-}
-
-
-h1,
-h2 {
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-weight: 400;
+  width:
+    100%;
 
 }
 
@@ -112,16 +110,17 @@ h2 {
 
   z-index: 9999;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
-
-  overflow: hidden;
+  justify-content:
+    center;
 
   background:
-    radial-gradient(circle at center,
+    radial-gradient(circle,
       #eee4d8,
       #cdbca9);
 
@@ -134,69 +133,39 @@ h2 {
 
 .loader.hidden {
 
-  opacity: 0;
+  opacity:
+    0;
 
-  visibility: hidden;
+  visibility:
+    hidden;
 
 }
 
 
 .loader-content {
 
-  position: relative;
-
-  z-index: 2;
-
   width:
     min(86%, 520px);
 
-  text-align: center;
-
-}
-
-
-.loader-orbit {
-
-  position: absolute;
-
-  width: 380px;
-
-  height: 380px;
-
-  border-radius: 50%;
-
-  border:
-    1px solid rgba(255, 255, 255, .25);
-
-  animation:
-    orbit 8s linear infinite;
-
-}
-
-
-@keyframes orbit {
-
-  to {
-
-    transform:
-      rotate(360deg);
-
-  }
+  text-align:
+    center;
 
 }
 
 
 .loader-star {
 
-  display: block;
+  display:
+    block;
 
   color:
     var(--gold);
 
-  font-size: 28px;
+  font-size:
+    28px;
 
   animation:
-    loaderStar 2s ease-in-out infinite;
+    loaderStar 2s infinite;
 
 }
 
@@ -215,84 +184,100 @@ h2 {
 
 .loader-label {
 
-  display: block;
+  display:
+    block;
 
-  margin-top: 22px;
+  margin-top:
+    20px;
 
-  font-size: 8px;
+  font-size:
+    8px;
 
-  letter-spacing: 5px;
+  letter-spacing:
+    5px;
 
 }
 
 
 .loader h2 {
 
-  margin-top: 20px;
+  margin-top:
+    20px;
 
   font-size:
-    clamp(3.2rem, 12vw, 5rem);
+    clamp(3rem, 12vw, 5rem);
 
-  line-height: .8;
+  line-height:
+    .8;
 
 }
 
 
 .loader h2 span {
 
-  display: block;
+  display:
+    block;
+
+  margin:
+    12px 0;
 
   color:
     var(--gold);
 
-  font-size: 2rem;
+  font-size:
+    2rem;
 
-  font-style: italic;
-
-  margin: 12px 0;
+  font-style:
+    italic;
 
 }
 
 
 .loader-progress {
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 1px;
+  height:
+    1px;
 
-  margin-top: 35px;
-
-  overflow: hidden;
+  margin-top:
+    35px;
 
   background:
     rgba(64, 56, 50, .2);
+
+  overflow:
+    hidden;
 
 }
 
 
 .loader-progress span {
 
-  display: block;
+  display:
+    block;
 
-  width: 0;
+  width:
+    0;
 
-  height: 100%;
+  height:
+    100%;
 
   background:
-    var(--gold-dark);
+    var(--gold);
 
   animation:
-    loading 2.3s ease forwards;
+    loaderProgress 2.3s forwards;
 
 }
 
 
-@keyframes loading {
+@keyframes loaderProgress {
 
   to {
-
-    width: 100%;
-
+    width:
+      100%;
   }
 
 }
@@ -300,16 +285,17 @@ h2 {
 
 .loader small {
 
-  display: block;
+  display:
+    block;
 
-  margin-top: 15px;
+  margin-top:
+    15px;
+
+  font-size:
+    8px;
 
   color:
-    var(--brown-light);
-
-  font-size: 8px;
-
-  letter-spacing: 1px;
+    var(--brown-soft);
 
 }
 
@@ -320,19 +306,26 @@ h2 {
 
 .screen {
 
-  position: relative;
+  position:
+    relative;
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100svh;
+  height:
+    100svh;
 
-  min-height: 100svh;
+  min-height:
+    100svh;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
-  scroll-snap-align: start;
+  scroll-snap-align:
+    start;
 
-  scroll-snap-stop: always;
+  scroll-snap-stop:
+    always;
 
 }
 
@@ -343,25 +336,32 @@ h2 {
 
 .progress {
 
-  position: fixed;
+  position:
+    fixed;
 
-  z-index: 1000;
+  z-index:
+    1000;
 
-  top: 50%;
+  top:
+    50%;
 
   right:
-    clamp(12px, 3vw, 28px);
+    12px;
 
   transform:
     translateY(-50%);
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 12px;
+  gap:
+    10px;
 
   color:
     white;
@@ -374,73 +374,88 @@ h2 {
 
 .progress-number {
 
-  display: flex;
+  display:
+    flex;
 
-  gap: 3px;
+  gap:
+    3px;
 
-  font-size: 8px;
+  font-size:
+    8px;
 
-  letter-spacing: 2px;
+  letter-spacing:
+    2px;
 
 }
 
 
 .progress-number i {
 
-  font-style: normal;
+  font-style:
+    normal;
 
-  opacity: .5;
+  opacity:
+    .5;
 
 }
 
 
 .progress-dots {
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  gap: 9px;
-
-  align-items: center;
+  gap:
+    8px;
 
 }
 
 
 .progress-dot {
 
-  width: 5px;
+  width:
+    5px;
 
-  height: 5px;
+  height:
+    5px;
 
-  padding: 0;
+  padding:
+    0;
 
-  border: 0;
+  border:
+    0;
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
   background:
     rgba(255, 255, 255, .45);
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
   transition:
-    .5s var(--ease);
+    .4s var(--ease);
 
 }
 
 
 .progress-dot.active {
 
-  width: 9px;
+  width:
+    9px;
 
-  height: 9px;
+  height:
+    9px;
 
   background:
     var(--gold);
 
   box-shadow:
-    0 0 15px rgba(200, 165, 116, .9);
+    0 0 14px rgba(200, 165, 116, .8);
 
 }
 
@@ -451,35 +466,70 @@ h2 {
 
 .floating-controls {
 
-  position: fixed;
+  position:
+    fixed;
 
-  z-index: 1100;
+  z-index:
+    1200;
 
-  right: 12px;
+  right:
+    10px;
 
   bottom:
-    max(14px,
+    max(12px,
       env(safe-area-inset-bottom));
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  gap: 9px;
+  gap:
+    8px;
+
+  opacity:
+    0;
+
+  pointer-events:
+    none;
+
+  transform:
+    translateY(20px);
+
+  transition:
+    .5s var(--ease);
+
+}
+
+
+.floating-controls.visible {
+
+  opacity:
+    1;
+
+  pointer-events:
+    auto;
+
+  transform:
+    translateY(0);
 
 }
 
 
 .floating-button {
 
-  width: 42px;
+  width:
+    42px;
 
-  height: 42px;
+  height:
+    42px;
 
   border:
-    1px solid rgba(255, 255, 255, .35);
+    1px solid rgba(255, 255, 255, .4);
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
   color:
     white;
@@ -488,23 +538,10 @@ h2 {
     rgba(40, 35, 31, .7);
 
   backdrop-filter:
-    blur(14px);
+    blur(12px);
 
-  cursor: pointer;
-
-  transition:
-    .4s var(--ease);
-
-}
-
-
-.floating-button:hover {
-
-  transform:
-    scale(1.1);
-
-  border-color:
-    var(--gold);
+  cursor:
+    pointer;
 
 }
 
@@ -512,14 +549,15 @@ h2 {
 .floating-button.playing {
 
   box-shadow:
-    0 0 20px rgba(200, 165, 116, .65);
+    0 0 20px rgba(200, 165, 116, .6);
 
 }
 
 
 .floating-button.playing span {
 
-  display: inline-block;
+  display:
+    inline-block;
 
   animation:
     musicPulse 1s infinite;
@@ -543,42 +581,42 @@ h2 {
    ELEMENTOS COMUNES
 ========================================================= */
 
-.small-label {
+.section-label {
 
-  display: block;
+  display:
+    block;
 
-  font-size: 8px;
+  font-size:
+    9px;
 
-  letter-spacing: 5px;
+  letter-spacing:
+    4px;
 
 }
 
 
-.from-left,
-.from-right,
 .reveal-left,
 .reveal-right,
 .reveal-up {
 
-  opacity: 0;
+  opacity:
+    0;
 
 }
 
 
-.from-left,
 .reveal-left {
 
   transform:
-    translateX(-90px);
+    translateX(-80px);
 
 }
 
 
-.from-right,
 .reveal-right {
 
   transform:
-    translateX(90px);
+    translateX(80px);
 
 }
 
@@ -586,7 +624,7 @@ h2 {
 .reveal-up {
 
   transform:
-    translateY(45px);
+    translateY(40px);
 
 }
 
@@ -594,7 +632,7 @@ h2 {
 .screen.active .reveal-left {
 
   animation:
-    revealLeft 1s .2s forwards var(--ease);
+    revealLeft .9s .15s forwards var(--ease);
 
 }
 
@@ -602,7 +640,7 @@ h2 {
 .screen.active .reveal-right {
 
   animation:
-    revealRight 1s .2s forwards var(--ease);
+    revealRight .9s .15s forwards var(--ease);
 
 }
 
@@ -610,7 +648,7 @@ h2 {
 .screen.active .reveal-up {
 
   animation:
-    revealUp .9s .2s forwards var(--ease);
+    revealUp .9s .15s forwards var(--ease);
 
 }
 
@@ -619,7 +657,8 @@ h2 {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0);
@@ -633,7 +672,8 @@ h2 {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0);
@@ -647,7 +687,8 @@ h2 {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateY(0);
@@ -663,19 +704,19 @@ h2 {
 
 .spark,
 .floating-spark,
-.celebration-decor,
 .final-spark {
 
-  position: absolute;
+  position:
+    absolute;
 
   color:
     var(--gold-light);
 
+  text-shadow:
+    0 0 16px rgba(230, 206, 167, .9);
+
   pointer-events:
     none;
-
-  text-shadow:
-    0 0 15px rgba(227, 201, 158, .9);
 
   animation:
     floatingSpark 4s ease-in-out infinite;
@@ -723,15 +764,14 @@ h2 {
 
 .hero-background {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: -4%;
+  inset:
+    -5%;
 
   background:
     url("../img/portada.jpeg") center / cover no-repeat;
-
-  transform:
-    scale(1.05);
 
   animation:
     heroZoom 14s ease-in-out infinite alternate;
@@ -744,49 +784,55 @@ h2 {
   to {
 
     transform:
-      scale(1.11);
+      scale(1.08);
 
   }
 
 }
 
 
-.dark-overlay {
+.hero-overlay {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
   background:
     linear-gradient(to bottom,
-      rgba(25, 20, 17, .18),
-      rgba(25, 20, 17, .72));
+      rgba(20, 16, 13, .15),
+      rgba(20, 16, 13, .72));
 
 }
 
 
 .hero-glow {
 
-  position: absolute;
+  position:
+    absolute;
 
   width:
-    min(600px, 130vw);
+    600px;
 
   height:
-    min(600px, 130vw);
+    600px;
 
-  left: 50%;
+  left:
+    50%;
 
-  top: 48%;
+  top:
+    50%;
 
   transform:
     translate(-50%, -50%);
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
   background:
     radial-gradient(circle,
-      rgba(200, 165, 116, .18),
+      rgba(200, 165, 116, .17),
       transparent 68%);
 
 }
@@ -794,62 +840,70 @@ h2 {
 
 .hero-content {
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 3;
+  z-index:
+    3;
 
   width:
     min(90%, 850px);
 
-  height: 100%;
+  height:
+    100%;
 
-  margin: auto;
+  margin:
+    auto;
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  text-align: center;
-
-}
-
-
-.hero-item {
-
-  opacity: 0;
-
-  transform:
-    translateY(25px);
+  text-align:
+    center;
 
 }
 
 
-.hero-screen.active .hero-item {
+.hero-label {
 
-  animation:
-    revealUp .9s .8s forwards;
+  font-size:
+    clamp(13px,
+      2vw,
+      18px);
+
+  letter-spacing:
+    5px;
 
 }
 
 
 .hero-names {
 
-  margin-top: 24px;
+  margin-top:
+    28px;
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  align-items: center;
+  align-items:
+    center;
 
   font-size:
-    clamp(5rem,
-      20vw,
-      10rem);
+    clamp(4.5rem,
+      16vw,
+      8rem);
 
   line-height:
     .62;
@@ -859,23 +913,46 @@ h2 {
 
 .hero-names span {
 
-  display: block;
+  display:
+    block;
 
 }
 
 
-.hero-screen.active .from-left {
+.name-left {
 
-  animation:
-    nameLeft 1.1s .2s forwards var(--ease);
+  opacity:
+    0;
+
+  transform:
+    translateX(-90px);
 
 }
 
 
-.hero-screen.active .from-right {
+.name-right {
+
+  opacity:
+    0;
+
+  transform:
+    translateX(90px);
+
+}
+
+
+.hero-screen.active .name-left {
 
   animation:
-    nameRight 1.1s .55s forwards var(--ease);
+    nameLeft 1s .2s forwards var(--ease);
+
+}
+
+
+.hero-screen.active .name-right {
+
+  animation:
+    nameRight 1s .5s forwards var(--ease);
 
 }
 
@@ -884,7 +961,8 @@ h2 {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0);
@@ -898,7 +976,8 @@ h2 {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0);
@@ -908,16 +987,16 @@ h2 {
 }
 
 
-.hero-ampersand {
+.hero-names strong {
 
   margin:
-    17px 0;
+    15px 0;
 
   color:
     var(--gold-light);
 
   font-size:
-    clamp(2rem, 7vw, 4rem);
+    2.5rem;
 
   font-weight:
     400;
@@ -925,103 +1004,61 @@ h2 {
   font-style:
     italic;
 
-  opacity: 0;
+  opacity:
+    0;
 
   transform:
-    scale(.2) rotate(-30deg);
+    scale(.2);
 
 }
 
 
-.hero-screen.active .hero-ampersand {
+.hero-screen.active .hero-names strong {
 
   animation:
-    ampersandIn .8s .42s forwards var(--ease);
+    ampersand .8s .4s forwards var(--ease);
 
 }
 
 
-@keyframes ampersandIn {
+@keyframes ampersand {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
-      scale(1) rotate(0);
+      scale(1);
 
   }
 
 }
 
 
-.hero-details {
+.hero-info {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 30px;
-
-  margin-top: 55px;
-
-}
-
-
-.hero-details div {
-
-  display: flex;
-
-  flex-direction: column;
-
-}
-
-
-.hero-details strong {
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    2.1rem;
-
-  font-weight:
-    400;
-
-}
-
-
-.hero-details span {
-
-  font-size:
-    7px;
-
-  letter-spacing:
-    3px;
-
-}
-
-
-.detail-separator {
-
-  width: 1px;
-
-  height: 42px;
-
-  background:
-    var(--gold);
-
-}
-
-
-.hero-place {
+  gap:
+    14px;
 
   margin-top:
-    20px;
+    55px;
+
+}
+
+
+.hero-info strong {
 
   font-size:
-    9px;
+    clamp(14px,
+      3vw,
+      20px);
 
   letter-spacing:
     2px;
@@ -1029,28 +1066,94 @@ h2 {
 }
 
 
-.swipe-hint {
+.hero-info span {
 
-  position: absolute;
-
-  bottom:
-    24px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 6px;
+  color:
+    var(--gold-light);
 
   font-size:
-    8px;
+    16px;
+
+}
+
+
+.hero-ceremony {
+
+  margin-top:
+    18px;
+
+  font-size:
+    11px;
 
   letter-spacing:
     3px;
 
-  opacity: 0;
+}
+
+
+.audio-trigger-zone {
+
+  position:
+    absolute;
+
+  z-index:
+    10;
+
+  left:
+    0;
+
+  bottom:
+    0;
+
+  width:
+    100%;
+
+  height:
+    50%;
+
+  background:
+    transparent;
+
+  cursor:
+    pointer;
+
+}
+
+
+.swipe-hint {
+
+  position:
+    absolute;
+
+  z-index:
+    15;
+
+  bottom:
+    28px;
+
+  left:
+    0;
+
+  width:
+    100%;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    6px;
+
+  pointer-events:
+    none;
+
+  opacity:
+    0;
 
 }
 
@@ -1058,18 +1161,33 @@ h2 {
 .hero-screen.active .swipe-hint {
 
   animation:
-    hintIn 1s 1.4s forwards;
+    hintAppear 1s 1.2s forwards;
 
 }
 
 
-@keyframes hintIn {
+@keyframes hintAppear {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
   }
+
+}
+
+
+.swipe-hint span {
+
+  font-size:
+    10px;
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    4px;
 
 }
 
@@ -1080,15 +1198,15 @@ h2 {
     var(--gold-light);
 
   font-size:
-    20px;
+    25px;
 
   animation:
-    arrowDown 1.4s infinite;
+    arrowMove 1.3s infinite;
 
 }
 
 
-@keyframes arrowDown {
+@keyframes arrowMove {
 
   50% {
 
@@ -1100,36 +1218,24 @@ h2 {
 }
 
 
-.swipe-hint small {
-
-  font-size:
-    6px;
-
-  letter-spacing:
-    2px;
-
-  opacity:
-    .7;
-
-}
-
-
-/* Brillos hero */
-
 .spark-1 {
 
-  top: 15%;
+  top:
+    15%;
 
-  left: 15%;
+  left:
+    15%;
 
 }
 
 
 .spark-2 {
 
-  top: 30%;
+  top:
+    27%;
 
-  right: 16%;
+  right:
+    15%;
 
   animation-delay:
     1s;
@@ -1139,21 +1245,25 @@ h2 {
 
 .spark-3 {
 
-  bottom: 27%;
+  bottom:
+    30%;
 
-  left: 20%;
+  left:
+    18%;
 
   animation-delay:
-    1.7s;
+    1.5s;
 
 }
 
 
 .spark-4 {
 
-  bottom: 18%;
+  bottom:
+    22%;
 
-  right: 22%;
+  right:
+    20%;
 
   animation-delay:
     .7s;
@@ -1162,10 +1272,10 @@ h2 {
 
 
 /* =========================================================
-   02 · ENCUENTRO
+   02 · HISTORIA
 ========================================================= */
 
-.encounter-screen {
+.story-screen {
 
   background:
     var(--cream);
@@ -1173,39 +1283,44 @@ h2 {
 }
 
 
-.encounter-image {
+.story-photo {
 
-  position: absolute;
+  position:
+    absolute;
+
+  right:
+    5%;
+
+  top:
+    13%;
 
   width:
-    min(52%, 600px);
+    45%;
 
   height:
-    70%;
+    62%;
 
-  top: 15%;
+  overflow:
+    hidden;
 
-  overflow: hidden;
+  opacity:
+    0;
 
 }
 
 
-.image-right {
-
-  right: 6%;
-
-  opacity: 0;
+.photo-enter-right {
 
   transform:
-    translateX(130px) rotate(3deg);
+    translateX(120px) rotate(3deg);
 
 }
 
 
-.encounter-screen.active .image-right {
+.story-screen.active .photo-enter-right {
 
   animation:
-    photoRight 1.2s .15s forwards var(--ease);
+    photoRight 1.1s .15s forwards var(--ease);
 
 }
 
@@ -1214,7 +1329,8 @@ h2 {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0) rotate(2deg);
@@ -1224,40 +1340,53 @@ h2 {
 }
 
 
-.encounter-image img {
+.story-photo img {
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100%;
+  height:
+    100%;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
 }
 
 
-.encounter-image::after {
+.story-photo::after {
 
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 15px;
+  inset:
+    14px;
 
   border:
-    1px solid rgba(255, 255, 255, .7);
+    1px solid rgba(255, 255, 255, .8);
 
 }
 
 
-.photo-glow {
+.photo-shine {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  top:
+    0;
 
-  left: -120%;
+  left:
+    -120%;
 
-  width: 50%;
+  width:
+    50%;
+
+  height:
+    100%;
 
   background:
     linear-gradient(90deg,
@@ -1271,32 +1400,39 @@ h2 {
 }
 
 
-.encounter-screen.active .photo-glow {
+.story-screen.active .photo-shine {
 
   animation:
-    imageLight 1.5s .7s forwards;
+    photoShine 1.4s .7s forwards;
 
 }
 
 
-@keyframes imageLight {
+@keyframes photoShine {
 
   to {
 
-    left: 150%;
+    left:
+      150%;
 
   }
 
 }
 
 
-.encounter-copy {
+.story-content {
 
-  position: absolute;
+  position:
+    absolute;
 
-  left: 9%;
+  left:
+    8%;
 
-  top: 50%;
+  top:
+    50%;
+
+  width:
+    42%;
 
   transform:
     translateY(-50%);
@@ -1304,43 +1440,43 @@ h2 {
 }
 
 
-.encounter-copy .small-label {
+.story-content .section-label {
 
   color:
     var(--gold-dark);
 
-  opacity: 0;
-
 }
 
 
-.encounter-screen.active .encounter-copy .small-label {
-
-  animation:
-    revealUp .7s .15s forwards;
-
-}
-
-
-.encounter-copy h2 {
+.story-content h2 {
 
   margin-top:
     25px;
 
   font-size:
-    clamp(5rem,
-      11vw,
-      9rem);
+    clamp(4.5rem,
+      9vw,
+      7rem);
 
   line-height:
-    .58;
+    .65;
 
 }
 
 
-.encounter-copy h2 span {
+.story-content h2 span,
+.story-content h2 em {
 
-  display: block;
+  display:
+    block;
+
+}
+
+
+.story-content h2 em {
+
+  margin-top:
+    10px;
 
   color:
     var(--gold-dark);
@@ -1351,7 +1487,10 @@ h2 {
 }
 
 
-.encounter-copy p {
+.story-text {
+
+  max-width:
+    520px;
 
   margin-top:
     30px;
@@ -1361,33 +1500,26 @@ h2 {
     serif;
 
   font-size:
-    clamp(1.5rem,
-      4vw,
-      2.5rem);
+    clamp(1.35rem,
+      2.8vw,
+      2rem);
 
-  opacity: 0;
-
-  transform:
-    translateX(-60px);
-
-}
-
-
-.encounter-screen.active .encounter-copy p {
-
-  animation:
-    revealLeft .9s .8s forwards var(--ease);
+  line-height:
+    1.25;
 
 }
 
 
 .gold-line {
 
-  display: block;
+  display:
+    block;
 
-  width: 0;
+  width:
+    70px;
 
-  height: 1px;
+  height:
+    1px;
 
   margin-top:
     28px;
@@ -1398,55 +1530,84 @@ h2 {
 }
 
 
-.encounter-screen.active .gold-line {
+.next-hint {
+
+  position:
+    absolute;
+
+  z-index:
+    5;
+
+  right:
+    14px;
+
+  bottom:
+    50%;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    5px;
+
+  color:
+    var(--gold-dark);
+
+}
+
+
+.next-hint span {
+
+  font-size:
+    6px;
+
+  letter-spacing:
+    2px;
+
+  writing-mode:
+    vertical-rl;
+
+}
+
+
+.next-hint strong {
+
+  font-size:
+    20px;
 
   animation:
-    lineGrow .8s 1.1s forwards;
+    arrowMove 1.3s infinite;
 
 }
 
 
-@keyframes lineGrow {
+.story-spark-1 {
 
-  to {
+  top:
+    12%;
 
-    width:
-      70px;
-
-  }
-
-}
-
-
-.spark-a {
-
-  top: 16%;
-
-  left: 12%;
+  left:
+    45%;
 
 }
 
 
-.spark-b {
+.story-spark-2 {
 
-  top: 25%;
+  bottom:
+    17%;
 
-  right: 10%;
+  right:
+    13%;
 
   animation-delay:
-    .9s;
-
-}
-
-
-.spark-c {
-
-  bottom: 18%;
-
-  left: 42%;
-
-  animation-delay:
-    1.5s;
+    1s;
 
 }
 
@@ -1465,9 +1626,11 @@ h2 {
 
 .church-background {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: -4%;
+  inset:
+    -5%;
 
   background:
     url("../img/foto3.jpeg") center / cover no-repeat;
@@ -1484,53 +1647,66 @@ h2 {
 .church-screen.active .church-background {
 
   transform:
-    scale(1.1);
+    scale(1.09);
 
 }
 
 
 .church-overlay {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
   background:
-    rgba(35, 29, 24, .68);
+    rgba(35, 29, 24, .64);
 
 }
 
 
 .church-content {
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 2;
+  z-index:
+    2;
 
-  height: 100%;
+  height:
+    100%;
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  text-align: center;
+  text-align:
+    center;
 
 }
 
 
-.church-content .small-label {
+.church-content .section-label {
 
   color:
     var(--gold-light);
 
+  font-size:
+    11px;
+
 }
 
 
-.church-icon {
+.church-symbol {
 
   margin-top:
     25px;
@@ -1543,7 +1719,7 @@ h2 {
     serif;
 
   font-size:
-    42px;
+    45px;
 
 }
 
@@ -1556,7 +1732,7 @@ h2 {
   font-size:
     clamp(5rem,
       15vw,
-      10rem);
+      9rem);
 
   line-height:
     .58;
@@ -1565,17 +1741,15 @@ h2 {
 
 
 .church-content h2 span,
-.church-content h2 strong {
+.church-content h2 em {
 
-  display: block;
-
-  font-weight:
-    400;
+  display:
+    block;
 
 }
 
 
-.church-content h2 strong {
+.church-content h2 em {
 
   color:
     var(--gold-light);
@@ -1586,73 +1760,56 @@ h2 {
 }
 
 
-.church-place {
+.church-name {
 
   margin-top:
-    30px;
+    35px;
 
   font-family:
     "Cormorant Garamond",
     serif;
 
   font-size:
-    1.8rem;
-
-  opacity: 0;
-
-}
-
-
-.church-screen.active .church-place {
-
-  animation:
-    revealUp .8s .7s forwards;
+    clamp(1.5rem,
+      4vw,
+      2.3rem);
 
 }
 
 
 .church-details {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 20px;
+  gap:
+    15px;
 
   margin-top:
     20px;
 
-  opacity: 0;
-
 }
 
 
-.church-screen.active .church-details {
+.church-details strong {
 
-  animation:
-    revealUp .8s .9s forwards;
+  font-size:
+    clamp(11px,
+      2vw,
+      15px);
+
+  letter-spacing:
+    2px;
 
 }
 
 
 .church-details span {
 
-  font-size:
-    7px;
-
-  letter-spacing:
-    3px;
-
-}
-
-
-.church-details i {
-
-  width: 1px;
-
-  height: 25px;
-
-  background:
+  color:
     var(--gold);
 
 }
@@ -1660,17 +1817,20 @@ h2 {
 
 .location-link {
 
-  display: inline-flex;
+  display:
+    inline-flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 25px;
+  gap:
+    22px;
 
   margin-top:
     30px;
 
   padding:
-    15px 22px;
+    16px 25px;
 
   border:
     1px solid var(--gold);
@@ -1682,15 +1842,10 @@ h2 {
     none;
 
   font-size:
-    8px;
+    9px;
 
   letter-spacing:
     3px;
-
-  opacity: 0;
-
-  transform:
-    translateY(25px);
 
   transition:
     .4s var(--ease);
@@ -1698,39 +1853,35 @@ h2 {
 }
 
 
-.church-screen.active .location-link {
-
-  animation:
-    revealUp .8s 1.05s forwards;
-
-}
-
-
 .location-link:hover {
-
-  color:
-    var(--brown);
 
   background:
     var(--gold);
+
+  color:
+    var(--brown);
 
 }
 
 
 .church-spark-1 {
 
-  top: 18%;
+  top:
+    18%;
 
-  left: 18%;
+  left:
+    15%;
 
 }
 
 
 .church-spark-2 {
 
-  right: 17%;
+  bottom:
+    18%;
 
-  bottom: 20%;
+  right:
+    17%;
 
   animation-delay:
     1s;
@@ -1752,32 +1903,42 @@ h2 {
 
 .celebration-photo {
 
-  position: absolute;
+  position:
+    absolute;
 
-  left: 6%;
+  left:
+    5%;
 
-  top: 15%;
+  top:
+    13%;
 
   width:
-    min(52%, 600px);
+    45%;
 
   height:
-    70%;
+    62%;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
-  opacity: 0;
-
-  transform:
-    translateX(-130px) rotate(-3deg);
+  opacity:
+    0;
 
 }
 
 
-.celebration-screen.active .celebration-photo {
+.photo-enter-left {
+
+  transform:
+    translateX(-120px) rotate(-3deg);
+
+}
+
+
+.celebration-screen.active .photo-enter-left {
 
   animation:
-    photoLeft 1.2s .15s forwards var(--ease);
+    photoLeft 1.1s .15s forwards var(--ease);
 
 }
 
@@ -1786,7 +1947,8 @@ h2 {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0) rotate(-2deg);
@@ -1798,22 +1960,28 @@ h2 {
 
 .celebration-photo img {
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100%;
+  height:
+    100%;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
 }
 
 
 .celebration-photo::after {
 
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 15px;
+  inset:
+    14px;
 
   border:
     1px solid rgba(255, 255, 255, .8);
@@ -1821,13 +1989,19 @@ h2 {
 }
 
 
-.celebration-copy {
+.celebration-content {
 
-  position: absolute;
+  position:
+    absolute;
 
-  right: 9%;
+  right:
+    7%;
 
-  top: 50%;
+  top:
+    50%;
+
+  width:
+    42%;
 
   transform:
     translateY(-50%);
@@ -1838,7 +2012,7 @@ h2 {
 }
 
 
-.celebration-copy .small-label {
+.celebration-content .section-label {
 
   color:
     var(--gold-dark);
@@ -1846,74 +2020,57 @@ h2 {
 }
 
 
-.celebration-copy h2 {
+.celebration-content h2 {
 
   margin-top:
-    25px;
+    22px;
+
+  color:
+    var(--brown);
 
   font-size:
-    clamp(5rem,
-      10vw,
-      8rem);
+    clamp(4.5rem,
+      9vw,
+      7rem);
 
   line-height:
-    .58;
+    .65;
 
 }
 
 
-.celebration-copy h2 span {
-
-  display: block;
-
-  color:
-    var(--gold-dark);
-
-  font-style:
-    italic;
-
-}
-
-
-.venue-name {
-
-  display: block;
+.celebration-text {
 
   margin-top:
-    30px;
+    28px;
 
   font-family:
     "Cormorant Garamond",
     serif;
 
   font-size:
-    2.4rem;
+    clamp(1.25rem,
+      2.7vw,
+      1.8rem);
 
-  font-weight:
-    500;
-
-  opacity: 0;
-
-  transform:
-    translateX(70px);
+  line-height:
+    1.25;
 
 }
 
 
-.celebration-screen.active .venue-name {
-
-  animation:
-    revealRight .9s .75s forwards;
-
-}
-
-
-.venue-time {
-
-  display: block;
+.venue {
 
   margin-top:
-    7px;
+    25px;
+
+}
+
+
+.venue span {
+
+  display:
+    block;
 
   font-size:
     8px;
@@ -1921,31 +2078,60 @@ h2 {
   letter-spacing:
     3px;
 
-  opacity: 0;
-
 }
 
 
-.celebration-screen.active .venue-time {
+.venue strong {
 
-  animation:
-    revealUp .8s .9s forwards;
+  display:
+    block;
 
-}
+  margin-top:
+    5px;
 
-
-.dark-link {
-
-  border-color:
+  color:
     var(--gold-dark);
+
+  font-size:
+    clamp(1.3rem,
+      3vw,
+      2rem);
+
+  letter-spacing:
+    1px;
+
+}
+
+
+.celebration-time {
+
+  display:
+    block;
+
+  margin-top:
+    12px;
+
+  font-size:
+    10px;
+
+  letter-spacing:
+    3px;
+
+}
+
+
+.dark-location {
 
   color:
     var(--brown);
 
+  border-color:
+    var(--gold-dark);
+
 }
 
 
-.dark-link:hover {
+.dark-location:hover {
 
   color:
     white;
@@ -1953,35 +2139,35 @@ h2 {
 }
 
 
-.decor-one {
+.dark-next {
 
-  top: 14%;
-
-  right: 12%;
+  color:
+    var(--gold-dark);
 
 }
 
 
-.decor-two {
+.celebration-spark-1 {
 
-  bottom: 16%;
+  top:
+    13%;
 
-  left: 18%;
+  right:
+    15%;
+
+}
+
+
+.celebration-spark-2 {
+
+  bottom:
+    15%;
+
+  left:
+    17%;
 
   animation-delay:
     1s;
-
-}
-
-
-.decor-three {
-
-  top: 35%;
-
-  left: 47%;
-
-  animation-delay:
-    1.7s;
 
 }
 
@@ -1990,23 +2176,27 @@ h2 {
    05 · MOMENTOS
 ========================================================= */
 
-.memories-screen {
+.moments-screen {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
 
   background:
     #eee4da;
 
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
 }
 
 
-.memories-heading {
+.moments-heading {
 
   text-align:
     center;
@@ -2014,7 +2204,7 @@ h2 {
 }
 
 
-.memories-heading .small-label {
+.moments-heading .section-label {
 
   color:
     var(--gold-dark);
@@ -2022,15 +2212,15 @@ h2 {
 }
 
 
-.memories-heading h2 {
+.moments-heading h2 {
 
   margin-top:
     15px;
 
   font-size:
-    clamp(4.5rem,
-      10vw,
-      7rem);
+    clamp(4rem,
+      9vw,
+      6rem);
 
   line-height:
     .7;
@@ -2038,51 +2228,75 @@ h2 {
 }
 
 
-.memories-gallery {
+.moments-gallery {
 
-  position: relative;
+  position:
+    relative;
 
   width:
-    min(90%, 950px);
+    min(90%, 1000px);
 
   height:
-    53%;
+    58%;
 
   margin-top:
-    35px;
+    25px;
 
 }
 
 
-.memory {
+.moment {
 
-  position: absolute;
+  position:
+    absolute;
 
-  overflow: hidden;
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    12px;
+
+  opacity:
+    0;
+
+}
+
+
+.moment-photo {
+
+  overflow:
+    hidden;
 
   box-shadow:
-    0 20px 50px rgba(50, 40, 30, .15);
-
-  opacity: 0;
+    0 18px 45px rgba(60, 45, 35, .18);
 
 }
 
 
-.memory img {
+.moment-photo img {
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100%;
+  height:
+    100%;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
   transition:
-    transform 1.3s var(--ease);
+    transform 1.2s var(--ease);
 
 }
 
 
-.memory:hover img {
+.moment:hover img {
 
   transform:
     scale(1.07);
@@ -2090,102 +2304,132 @@ h2 {
 }
 
 
-.memory span {
+.moment p {
 
-  position: absolute;
+  max-width:
+    220px;
 
-  right: 10px;
+  text-align:
+    center;
 
-  bottom: 8px;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-  color:
-    white;
+  font-size:
+    1.25rem;
 
-  text-shadow:
-    0 0 12px black;
+  line-height:
+    1;
 
 }
 
 
-.memory-one {
+.moment-1 {
 
-  left: 0;
+  left:
+    0;
 
-  top: 8%;
+  top:
+    12%;
 
-  width: 38%;
-
-  height: 75%;
+  width:
+    32%;
 
   transform:
-    translateX(-120px) rotate(-4deg);
+    translateX(-100px) rotate(-4deg);
 
 }
 
 
-.memory-two {
+.moment-2 {
 
-  left: 32%;
+  left:
+    34%;
 
-  top: 0;
+  top:
+    0;
 
-  z-index: 2;
-
-  width: 38%;
-
-  height: 88%;
+  width:
+    32%;
 
   transform:
-    translateY(100px) scale(.9);
+    translateY(100px);
 
 }
 
 
-.memory-three {
+.moment-3 {
 
-  right: 0;
+  right:
+    0;
 
-  top: 10%;
+  top:
+    14%;
 
-  width: 35%;
-
-  height: 70%;
+  width:
+    30%;
 
   transform:
-    translateX(120px) rotate(4deg);
+    translateX(100px) rotate(4deg);
 
 }
 
 
-.memories-screen.active .memory-one {
+.moment-1 .moment-photo {
+
+  height:
+    270px;
+
+}
+
+
+.moment-2 .moment-photo {
+
+  height:
+    320px;
+
+}
+
+
+.moment-3 .moment-photo {
+
+  height:
+    270px;
+
+}
+
+
+.moments-screen.active .moment-1 {
 
   animation:
-    galleryLeft 1s .15s forwards var(--ease);
+    momentLeft 1s .15s forwards var(--ease);
 
 }
 
 
-.memories-screen.active .memory-two {
+.moments-screen.active .moment-2 {
 
   animation:
-    galleryCenter 1s .35s forwards var(--ease);
+    momentCenter 1s .35s forwards var(--ease);
 
 }
 
 
-.memories-screen.active .memory-three {
+.moments-screen.active .moment-3 {
 
   animation:
-    galleryRight 1s .55s forwards var(--ease);
+    momentRight 1s .55s forwards var(--ease);
 
 }
 
 
-@keyframes galleryLeft {
+@keyframes momentLeft {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0) rotate(-3deg);
@@ -2195,25 +2439,27 @@ h2 {
 }
 
 
-@keyframes galleryCenter {
+@keyframes momentCenter {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
-      translateY(0) scale(1);
+      translateY(0);
 
   }
 
 }
 
 
-@keyframes galleryRight {
+@keyframes momentRight {
 
   to {
 
-    opacity: 1;
+    opacity:
+      1;
 
     transform:
       translateX(0) rotate(3deg);
@@ -2232,11 +2478,14 @@ h2 {
   color:
     white;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
   text-align:
     center;
@@ -2246,15 +2495,17 @@ h2 {
 
 .final-background {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: -4%;
+  inset:
+    -5%;
 
   background:
     url("../img/portada.jpeg") center / cover no-repeat;
 
   transform:
-    scale(1.05);
+    scale(1.04);
 
   transition:
     transform 10s ease;
@@ -2265,38 +2516,42 @@ h2 {
 .final-screen.active .final-background {
 
   transform:
-    scale(1.11);
+    scale(1.1);
 
 }
 
 
 .final-overlay {
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
   background:
-    rgba(28, 22, 18, .66);
+    rgba(25, 20, 17, .67);
 
 }
 
 
 .final-glow {
 
-  position: absolute;
+  position:
+    absolute;
 
   width:
-    min(600px, 130vw);
+    600px;
 
   height:
-    min(600px, 130vw);
+    600px;
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
   background:
     radial-gradient(circle,
-      rgba(200, 165, 116, .2),
+      rgba(200, 165, 116, .18),
       transparent 68%);
 
 }
@@ -2304,9 +2559,14 @@ h2 {
 
 .final-content {
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 2;
+  z-index:
+    2;
+
+  width:
+    min(90%, 750px);
 
 }
 
@@ -2314,12 +2574,12 @@ h2 {
 .final-content h2 {
 
   margin-top:
-    35px;
+    30px;
 
   font-size:
-    clamp(5rem,
-      14vw,
-      9rem);
+    clamp(4.5rem,
+      12vw,
+      8rem);
 
   line-height:
     .6;
@@ -2329,14 +2589,16 @@ h2 {
 
 .final-content h2 span {
 
-  display: block;
+  display:
+    block;
 
 }
 
 
 .final-content h2 strong {
 
-  display: block;
+  display:
+    block;
 
   margin:
     15px 0;
@@ -2358,9 +2620,11 @@ h2 {
 
 .final-line {
 
-  width: 0;
+  width:
+    0;
 
-  height: 1px;
+  height:
+    1px;
 
   margin:
     35px auto 0;
@@ -2374,12 +2638,12 @@ h2 {
 .final-screen.active .final-line {
 
   animation:
-    lineGrow .8s 1s forwards;
+    lineGrow .8s .8s forwards;
 
 }
 
 
-.final-content p {
+.final-content>p {
 
   margin-top:
     25px;
@@ -2389,47 +2653,54 @@ h2 {
     serif;
 
   font-size:
-    1.8rem;
+    2rem;
 
 }
 
 
-.final-date {
+.final-message {
 
-  display: block;
+  max-width:
+    560px;
 
-  margin-top:
-    20px;
+  margin-left:
+    auto;
+
+  margin-right:
+    auto;
+
+  line-height:
+    1.35;
 
   font-size:
-    8px;
-
-  letter-spacing:
-    4px;
+    clamp(1.2rem,
+      3vw,
+      1.5rem) !important;
 
 }
 
 
 .heart {
 
-  display: block;
+  display:
+    block;
 
   margin-top:
-    20px;
+    25px;
 
   color:
     var(--gold-light);
 
   font-size:
-    30px;
+    35px;
 
   animation:
-    heartBeat 2s infinite;
+    heartPulse 2s infinite;
 
 }
 
 
-@keyframes heartBeat {
+@keyframes heartPulse {
 
   50% {
 
@@ -2441,20 +2712,24 @@ h2 {
 }
 
 
-.final-spark-one {
+.final-spark-1 {
 
-  top: 15%;
+  top:
+    15%;
 
-  left: 18%;
+  left:
+    17%;
 
 }
 
 
-.final-spark-two {
+.final-spark-2 {
 
-  top: 30%;
+  right:
+    16%;
 
-  right: 16%;
+  top:
+    30%;
 
   animation-delay:
     1s;
@@ -2462,14 +2737,242 @@ h2 {
 }
 
 
-.final-spark-three {
+/* =========================================================
+   07 · DETALLES
+========================================================= */
 
-  bottom: 17%;
+.details-screen {
 
-  left: 45%;
+  display:
+    flex;
 
-  animation-delay:
-    1.8s;
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    var(--cream);
+
+}
+
+
+.details-content {
+
+  width:
+    min(88%, 650px);
+
+  text-align:
+    center;
+
+}
+
+
+.details-content .section-label {
+
+  color:
+    var(--gold-dark);
+
+}
+
+
+.details-content h2 {
+
+  margin-top:
+    12px;
+
+  font-size:
+    clamp(4rem,
+      10vw,
+      6rem);
+
+  line-height:
+    .7;
+
+}
+
+
+.detail-card {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    18px;
+
+  margin-top:
+    28px;
+
+  padding:
+    20px;
+
+  border:
+    1px solid rgba(169, 132, 89, .35);
+
+  text-align:
+    left;
+
+  background:
+    rgba(255, 255, 255, .3);
+
+}
+
+
+.detail-icon {
+
+  color:
+    var(--gold-dark);
+
+  font-size:
+    28px;
+
+}
+
+
+.detail-card div {
+
+  flex:
+    1;
+
+}
+
+
+.detail-card small {
+
+  display:
+    block;
+
+  color:
+    var(--gold-dark);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    3px;
+
+}
+
+
+.detail-card strong {
+
+  display:
+    block;
+
+  margin-top:
+    4px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    1.7rem;
+
+  font-weight:
+    500;
+
+}
+
+
+.detail-card div span {
+
+  display:
+    block;
+
+  margin-top:
+    3px;
+
+  font-size:
+    10px;
+
+  letter-spacing:
+    1px;
+
+}
+
+
+.detail-card a {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    40px;
+
+  height:
+    40px;
+
+  border-radius:
+    50%;
+
+  color:
+    white;
+
+  background:
+    var(--brown);
+
+  text-decoration:
+    none;
+
+}
+
+
+.details-date {
+
+  margin-top:
+    35px;
+
+  color:
+    var(--gold-dark);
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    4px;
+
+}
+
+
+.details-end {
+
+  margin-top:
+    15px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    1.8rem;
+
+}
+
+
+.details-heart {
+
+  display:
+    block;
+
+  margin-top:
+    12px;
+
+  color:
+    var(--gold-dark);
+
+  font-size:
+    25px;
 
 }
 
@@ -2484,52 +2987,7 @@ h2 {
   .progress {
 
     right:
-      8px;
-
-    gap:
-      8px;
-
-  }
-
-
-  .progress-dots {
-
-    gap:
       7px;
-
-  }
-
-
-  .progress-dot {
-
-    width:
-      4px;
-
-    height:
-      4px;
-
-  }
-
-
-  .progress-dot.active {
-
-    width:
-      8px;
-
-    height:
-      8px;
-
-  }
-
-
-  .floating-controls {
-
-    right:
-      9px;
-
-    bottom:
-      max(10px,
-        env(safe-area-inset-bottom));
 
   }
 
@@ -2545,64 +3003,99 @@ h2 {
   }
 
 
+  /* HERO */
+
+  .hero-label {
+
+    width:
+      90%;
+
+    font-size:
+      11px;
+
+    line-height:
+      1.4;
+
+    letter-spacing:
+      3px;
+
+  }
+
+
   .hero-names {
 
     font-size:
-      clamp(4.4rem,
-        21vw,
-        6.5rem);
+      clamp(4rem,
+        19vw,
+        6rem);
 
   }
 
 
-  .hero-details {
+  .hero-info {
 
     margin-top:
-      45px;
-
-    gap:
-      22px;
+      48px;
 
   }
 
 
-  .hero-details strong {
+  .hero-info strong {
 
     font-size:
-      1.8rem;
+      15px;
 
   }
 
 
-  /* ENCUENTRO */
+  .hero-ceremony {
 
-  .encounter-image {
+    font-size:
+      9px;
 
-    width:
-      78%;
+  }
 
-    height:
-      52%;
+
+  .swipe-hint span {
+
+    font-size:
+      9px;
+
+  }
+
+
+  /* STORY */
+
+  .story-photo {
 
     top:
-      9%;
+      8%;
 
     right:
-      4%;
+      5%;
+
+    width:
+      72%;
+
+    height:
+      45%;
 
   }
 
 
-  .encounter-copy {
+  .story-content {
 
     left:
       8%;
 
+    bottom:
+      10%;
+
     top:
       auto;
 
-    bottom:
-      12%;
+    width:
+      84%;
 
     transform:
       none;
@@ -2610,46 +3103,92 @@ h2 {
   }
 
 
-  .encounter-copy h2 {
+  .story-content h2 {
 
     margin-top:
-      16px;
+      18px;
 
     font-size:
-      clamp(4rem,
-        17vw,
-        5.5rem);
+      clamp(3.7rem,
+        15vw,
+        5.3rem);
 
   }
 
 
-  .encounter-copy p {
+  .story-text {
 
     margin-top:
-      20px;
+      18px;
 
     font-size:
-      1.5rem;
+      1.35rem;
+
+    max-width:
+      90%;
 
   }
 
 
-  /* IGLESIA */
+  .next-hint {
+
+    right:
+      7px;
+
+    bottom:
+      46%;
+
+  }
+
+
+  /* CHURCH */
+
+  .church-content .section-label {
+
+    font-size:
+      10px;
+
+  }
+
 
   .church-content h2 {
 
     font-size:
-      clamp(5rem,
+      clamp(4.8rem,
         20vw,
         7rem);
 
   }
 
 
-  .church-place {
+  .church-name {
 
     font-size:
-      1.5rem;
+      1.55rem;
+
+  }
+
+
+  .church-details {
+
+    gap:
+      10px;
+
+  }
+
+
+  .church-details strong {
+
+    font-size:
+      10px;
+
+  }
+
+
+  .location-link {
+
+    padding:
+      15px 20px;
 
   }
 
@@ -2658,110 +3197,136 @@ h2 {
 
   .celebration-photo {
 
-    width:
-      78%;
-
-    height:
-      52%;
-
     left:
-      4%;
+      5%;
 
     top:
-      9%;
+      8%;
+
+    width:
+      72%;
+
+    height:
+      44%;
 
   }
 
 
-  .celebration-copy {
+  .celebration-content {
 
     right:
+      7%;
+
+    bottom:
       8%;
 
     top:
       auto;
 
-    bottom:
-      9%;
+    width:
+      86%;
+
+    transform:
+      none;
 
   }
 
 
-  .celebration-copy h2 {
+  .celebration-content h2 {
+
+    margin-top:
+      15px;
 
     font-size:
-      clamp(4rem,
-        17vw,
+      clamp(3.8rem,
+        16vw,
         5.5rem);
 
   }
 
 
-  .venue-name {
+  .celebration-text {
+
+    margin-top:
+      15px;
 
     font-size:
-      2rem;
+      1.25rem;
+
+  }
+
+
+  .venue {
+
+    margin-top:
+      16px;
+
+  }
+
+
+  .venue strong {
+
+    font-size:
+      1.45rem;
+
+  }
+
+
+  .next-hint {
+
+    bottom:
+      45%;
 
   }
 
 
   /* MOMENTOS */
 
-  .memories-gallery {
+  .moments-heading h2 {
 
-    height:
-      50%;
-
-    width:
-      90%;
+    font-size:
+      4rem;
 
   }
 
 
-  .memory-one {
+  .moments-gallery {
+
+    width:
+      92%;
+
+    height:
+      58%;
+
+  }
+
+
+  .moment-1 {
+
+    width:
+      47%;
+
+    top:
+      13%;
+
+  }
+
+
+  .moment-2 {
+
+    left:
+      27%;
 
     width:
       48%;
 
-    height:
-      70%;
-
-    left:
-      0;
-
-    top:
-      12%;
-
   }
 
 
-  .memory-two {
+  .moment-3 {
 
     width:
-      52%;
-
-    height:
-      80%;
-
-    left:
-      24%;
-
-    top:
-      0;
-
-  }
-
-
-  .memory-three {
-
-    width:
-      45%;
-
-    height:
-      64%;
-
-    right:
-      0;
+      43%;
 
     top:
       18%;
@@ -2769,14 +3334,108 @@ h2 {
   }
 
 
+  .moment-1 .moment-photo,
+  .moment-3 .moment-photo {
+
+    height:
+      210px;
+
+  }
+
+
+  .moment-2 .moment-photo {
+
+    height:
+      260px;
+
+  }
+
+
+  .moment p {
+
+    font-size:
+      1.05rem;
+
+  }
+
+
   /* FINAL */
+
+  .final-content {
+
+    width:
+      88%;
+
+  }
+
 
   .final-content h2 {
 
     font-size:
-      clamp(4.5rem,
-        19vw,
-        6.5rem);
+      clamp(4.2rem,
+        18vw,
+        6rem);
+
+  }
+
+
+  .final-content>p {
+
+    font-size:
+      1.7rem;
+
+  }
+
+
+  .final-message {
+
+    font-size:
+      1.2rem !important;
+
+  }
+
+
+  /* DETAILS */
+
+  .details-content {
+
+    width:
+      88%;
+
+  }
+
+
+  .details-content h2 {
+
+    font-size:
+      4rem;
+
+  }
+
+
+  .detail-card {
+
+    padding:
+      15px;
+
+    gap:
+      12px;
+
+  }
+
+
+  .detail-card strong {
+
+    font-size:
+      1.45rem;
+
+  }
+
+
+  .detail-card div span {
+
+    font-size:
+      8px;
 
   }
 
@@ -2793,39 +3452,39 @@ h2 {
   .hero-names {
 
     font-size:
-      3.9rem;
+      3.7rem;
 
   }
 
 
-  .hero-details {
+  .hero-info {
 
-    gap:
-      15px;
+    margin-top:
+      40px;
 
   }
 
 
-  .encounter-image {
+  .story-photo {
 
     height:
-      49%;
+      42%;
 
   }
 
 
-  .encounter-copy {
-
-    bottom:
-      11%;
-
-  }
-
-
-  .encounter-copy h2 {
+  .story-content h2 {
 
     font-size:
-      3.5rem;
+      3.4rem;
+
+  }
+
+
+  .story-text {
+
+    font-size:
+      1.15rem;
 
   }
 
@@ -2833,52 +3492,26 @@ h2 {
   .church-content h2 {
 
     font-size:
-      4.8rem;
+      4.5rem;
 
   }
 
 
-  .celebration-copy h2 {
+  .celebration-content h2 {
 
     font-size:
-      3.7rem;
+      3.5rem;
 
   }
 
 
-  .memories-heading h2 {
+  .moments-heading h2 {
 
     font-size:
-      3.8rem;
+      3.6rem;
 
   }
 
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media (min-width: 769px) {
-
-
-  .hero-screen,
-  .church-screen,
-  .final-screen {
-
-    min-height:
-      100vh;
-
-  }
-
-
-  .screen {
-
-    height:
-      100vh;
-
-  }
 
 }
 
@@ -2888,7 +3521,6 @@ h2 {
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
 
   *,
   *::before,

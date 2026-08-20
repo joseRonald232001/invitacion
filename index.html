@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -12,17 +13,17 @@
     Invitación a nuestro matrimonio | Alexander & Luz Clara
   </title>
 
-  <meta name="description" content="Alexander & Luz Clara te invitan a celebrar junto a ellos este día tan especial.">
+  <meta name="description" content="Alexander & Luz Clara te invitan a compartir este momento único de sus vidas.">
 
-  <!-- ================================
+  <!-- =========================================
          VISTA PREVIA AL COMPARTIR
-    ================================= -->
+    ========================================== -->
 
   <meta property="og:type" content="website">
 
   <meta property="og:title" content="Invitación a nuestro matrimonio | Alexander & Luz Clara">
 
-  <meta property="og:description" content="20 de diciembre de 2026 · Acompáñanos en este día tan especial.">
+  <meta property="og:description" content="5 de septiembre · 17:00 HRS.">
 
   <meta property="og:image" content="https://TU-DOMINIO.com/img/portada.jpeg">
 
@@ -34,14 +35,14 @@
 
   <meta name="twitter:title" content="Invitación a nuestro matrimonio | Alexander & Luz Clara">
 
-  <meta name="twitter:description" content="20 de diciembre de 2026">
+  <meta name="twitter:description" content="5 de septiembre · 17:00 HRS.">
 
   <meta name="twitter:image" content="https://TU-DOMINIO.com/img/portada.jpeg">
 
 
-  <!-- ================================
+  <!-- =========================================
          FUENTES
-    ================================= -->
+    ========================================== -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -53,6 +54,7 @@
 
 
   <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 
@@ -111,29 +113,33 @@
          CONTROLES FLOTANTES
     ========================================== -->
 
-  <div class="floating-controls">
+  <div class="floating-controls" id="floatingControls">
 
-    <button type="button" class="floating-button" id="musicButton" aria-label="Activar o pausar música">
+    <button type="button" class="floating-button music-button" id="musicButton" aria-label="Música">
+
       <span>
         ♫
       </span>
+
     </button>
 
 
-    <button type="button" class="floating-button" id="locationButton" aria-label="Ver ubicación">
+    <button type="button" class="floating-button" id="locationButton" aria-label="Ubicación">
+
       <span>
         ⌖
       </span>
+
     </button>
 
   </div>
 
 
   <!-- =========================================
-         PROGRESO
+         INDICADOR
     ========================================== -->
 
-  <aside class="progress" id="progress" aria-label="Progreso de la invitación">
+  <aside class="progress" id="progress">
 
     <div class="progress-number">
 
@@ -144,7 +150,7 @@
       <i>/</i>
 
       <span>
-        06
+        07
       </span>
 
     </div>
@@ -152,17 +158,19 @@
 
     <div class="progress-dots">
 
-      <button type="button" class="progress-dot active" data-target="0" aria-label="Ir a pantalla 1"></button>
+      <button class="progress-dot active" data-target="0" aria-label="Pantalla 1"></button>
 
-      <button type="button" class="progress-dot" data-target="1" aria-label="Ir a pantalla 2"></button>
+      <button class="progress-dot" data-target="1" aria-label="Pantalla 2"></button>
 
-      <button type="button" class="progress-dot" data-target="2" aria-label="Ir a pantalla 3"></button>
+      <button class="progress-dot" data-target="2" aria-label="Pantalla 3"></button>
 
-      <button type="button" class="progress-dot" data-target="3" aria-label="Ir a pantalla 4"></button>
+      <button class="progress-dot" data-target="3" aria-label="Pantalla 4"></button>
 
-      <button type="button" class="progress-dot" data-target="4" aria-label="Ir a pantalla 5"></button>
+      <button class="progress-dot" data-target="4" aria-label="Pantalla 5"></button>
 
-      <button type="button" class="progress-dot" data-target="5" aria-label="Ir a pantalla 6"></button>
+      <button class="progress-dot" data-target="5" aria-label="Pantalla 6"></button>
+
+      <button class="progress-dot" data-target="6" aria-label="Pantalla 7"></button>
 
     </div>
 
@@ -176,20 +184,20 @@
   <main id="experience">
 
 
-    <!-- =====================================
-             01 · PORTADA
-        ====================================== -->
+    <!-- =================================================
+             01 · INVITACIÓN
+        ================================================== -->
 
     <section class="screen hero-screen" data-index="0">
 
       <div class="hero-background"></div>
 
-      <div class="dark-overlay"></div>
+      <div class="hero-overlay"></div>
 
       <div class="hero-glow"></div>
 
 
-      <!-- Brillos -->
+      <!-- BRILLOS -->
 
       <span class="spark spark-1">
         ✦
@@ -208,86 +216,81 @@
       </span>
 
 
+      <!-- CONTENIDO -->
+
       <div class="hero-content">
 
-        <span class="small-label hero-item">
-          INVITACIÓN
+        <span class="hero-label reveal-up">
+          INVITACIÓN A NUESTRO MATRIMONIO
         </span>
 
 
         <h1 class="hero-names">
 
-          <span class="from-left">
+          <span class="name-left">
             Alexander
           </span>
 
-          <strong class="hero-ampersand">
+          <strong>
             &
           </strong>
 
-          <span class="from-right">
+          <span class="name-right">
             Luz Clara
           </span>
 
         </h1>
 
 
-        <div class="hero-details hero-item">
+        <div class="hero-info reveal-up">
 
-          <div>
+          <strong>
+            5 DE SEPTIEMBRE
+          </strong>
 
-            <strong>
-              20
-            </strong>
+          <span>
+            |
+          </span>
 
-            <span>
-              DICIEMBRE
-            </span>
-
-            <span>
-              2026
-            </span>
-
-          </div>
-
-
-          <div class="detail-separator"></div>
-
-
-          <div>
-
-            <strong>
-              17:00
-            </strong>
-
-            <span>
-              HRS.
-            </span>
-
-          </div>
+          <strong>
+            17:00 HRS.
+          </strong>
 
         </div>
 
 
-        <p class="hero-place hero-item">
-          Iglesia · Ceremonia
+        <p class="hero-ceremony reveal-up">
+          IGLESIA · CEREMONIA
         </p>
 
+
+        <!--
+                    ZONA INVISIBLE
+
+                    Ocupa 50% de la pantalla
+                    y 100% del ancho.
+
+                    No se ve.
+
+                    Su función es detectar
+                    la primera interacción.
+                -->
+
+        <div class="audio-trigger-zone" id="audioTriggerZone"></div>
+
+
+        <!-- INDICACIÓN VISIBLE -->
 
         <div class="swipe-hint">
 
           <span>
-            DESLIZA
+            DESLIZA PARA COMENZAR
           </span>
 
           <strong>
             ↓
           </strong>
 
-          <small>
-            PARA COMENZAR
-          </small>
-
         </div>
 
       </div>
@@ -295,61 +298,85 @@
     </section>
 
 
-    <!-- =====================================
-             02 · ENCUENTRO
-        ====================================== -->
+    <!-- =================================================
+             02 · HISTORIA
+        ================================================== -->
 
-    <section class="screen encounter-screen" data-index="1">
+    <section class="screen story-screen" data-index="1">
 
-      <div class="floating-spark spark-a">
+      <span class="floating-spark story-spark-1">
         ✦
-      </div>
+      </span>
 
-      <div class="floating-spark spark-b">
+      <span class="floating-spark story-spark-2">
         ✧
-      </div>
-
-      <div class="floating-spark spark-c">
-        ✦
-      </div>
+      </span>
 
 
-      <div class="encounter-image image-right">
+      <div class="story-photo photo-enter-right">
 
         <img src="img/foto1.jpeg" alt="Alexander y Luz Clara" loading="eager">
 
-        <span class="photo-glow"></span>
+        <span class="photo-shine"></span>
 
       </div>
 
 
-      <div class="encounter-copy text-left">
+      <div class="story-content">
 
-        <span class="small-label">
-          EL COMIENZO
+        <span class="section-label reveal-left">
+          NUESTRA HISTORIA
         </span>
 
+
         <h2>
-          Todo
-          <span>
-            comenzó
+
+          <span class="reveal-left">
+            Dos historias,
           </span>
+
+          <em class="reveal-right">
+            un mismo camino.
+          </em>
+
         </h2>
 
-        <p>
-          con una mirada.
+
+        <p class="story-text reveal-left">
+
+          Hoy queremos comenzar juntos
+          una nueva aventura y compartir
+          este día con quienes forman
+          parte de nuestra vida.
+
         </p>
 
-        <span class="gold-line"></span>
+
+        <span class="gold-line reveal-left"></span>
+
+      </div>
+
+
+      <!-- FLECHA LATERAL -->
+
+      <div class="next-hint">
+
+        <span>
+          DESLIZA
+        </span>
+
+        <strong>
+          ↓
+        </strong>
 
       </div>
 
     </section>
 
 
-    <!-- =====================================
-             03 · IGLESIA
-        ====================================== -->
+    <!-- =================================================
+             03 · CEREMONIA
+        ================================================== -->
 
     <section class="screen church-screen" data-index="2">
 
@@ -369,12 +396,12 @@
 
       <div class="church-content">
 
-        <span class="small-label reveal-up">
-          LA CEREMONIA
+        <span class="section-label reveal-up">
+          NUESTRA CEREMONIA
         </span>
 
 
-        <div class="church-icon reveal-up">
+        <div class="church-symbol reveal-up">
           ♰
         </div>
 
@@ -385,29 +412,31 @@
             En la
           </span>
 
-          <strong class="reveal-right">
+          <em class="reveal-right">
             Iglesia
-          </strong>
+          </em>
 
         </h2>
 
 
-        <p class="church-place reveal-up">
-          Nombre de la Iglesia
+        <p class="church-name reveal-up">
+          NOMBRE DE LA IGLESIA
         </p>
 
 
         <div class="church-details reveal-up">
 
+          <strong>
+            5 DE SEPTIEMBRE
+          </strong>
+
           <span>
-            20 DICIEMBRE 2026
+            ·
           </span>
 
-          <i></i>
-
-          <span>
+          <strong>
             17:00 HRS.
-          </span>
+          </strong>
 
         </div>
 
@@ -429,58 +458,72 @@
     </section>
 
 
-    <!-- =====================================
+    <!-- =================================================
              04 · CELEBRACIÓN
-        ====================================== -->
+        ================================================== -->
 
     <section class="screen celebration-screen" data-index="3">
 
-      <div class="celebration-decor decor-one">
+      <span class="floating-spark celebration-spark-1">
         ✦
-      </div>
+      </span>
 
-      <div class="celebration-decor decor-two">
+      <span class="floating-spark celebration-spark-2">
         ✧
-      </div>
-
-      <div class="celebration-decor decor-three">
-        ✦
-      </div>
+      </span>
 
 
-      <div class="celebration-photo image-left">
+      <div class="celebration-photo photo-enter-left">
 
         <img src="img/foto2.jpeg" alt="Celebración" loading="lazy">
 
+        <span class="photo-shine"></span>
+
       </div>
 
 
-      <div class="celebration-copy text-right">
+      <div class="celebration-content">
 
-        <span class="small-label">
-          DESPUÉS
+        <span class="section-label reveal-right">
+          DESPUÉS DE LA CEREMONIA
         </span>
 
 
-        <h2>
-          Nos vemos
-          <span>
-            en...
-          </span>
+        <h2 class="reveal-right">
+          Acompáñanos
         </h2>
 
 
-        <strong class="venue-name">
-          LOCAL X
-        </strong>
+        <p class="celebration-text reveal-right">
+
+          Hay momentos que son especiales,
+          pero compartirlos con las personas
+          que amamos los convierte en
+          inolvidables.
+
+        </p>
 
 
-        <span class="venue-time">
+        <div class="venue reveal-right">
+
+          <span>
+            EN EL
+          </span>
+
+          <strong>
+            LOCAL TRANS ROSARIO
+          </strong>
+
+        </div>
+
+
+        <span class="celebration-time reveal-up">
           19:30 HRS.
         </span>
 
 
-        <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" class="location-link dark-link">
+        <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer"
+          class="location-link dark-location reveal-up">
 
           <span>
             VER UBICACIÓN
@@ -494,59 +537,91 @@
 
       </div>
 
+
+      <!-- FLECHA -->
+
+      <div class="next-hint dark-next">
+
+        <span>
+          DESLIZA
+        </span>
+
+        <strong>
+          ↓
+        </strong>
+
+      </div>
+
     </section>
 
 
-    <!-- =====================================
-             05 · MOMENTOS
-        ====================================== -->
+    <!-- =================================================
+             05 · NUESTROS MOMENTOS
+        ================================================== -->
 
-    <section class="screen memories-screen" data-index="4">
+    <section class="screen moments-screen" data-index="4">
 
-      <div class="memories-heading">
+      <div class="moments-heading">
 
-        <span class="small-label">
+        <span class="section-label reveal-up">
           NUESTROS MOMENTOS
         </span>
 
-        <h2>
-          Lo que somos.
+
+        <h2 class="reveal-up">
+          Nuestra historia.
         </h2>
 
       </div>
 
 
-      <div class="memories-gallery">
-
-        <div class="memory memory-one">
-
-          <img src="img/foto2.jpeg" alt="Recuerdo de Alexander y Luz Clara" loading="lazy">
-
-          <span>
-            ✦
-          </span>
-
-        </div>
+      <div class="moments-gallery">
 
 
-        <div class="memory memory-two">
+        <div class="moment moment-1">
 
-          <img src="img/foto3.jpeg" alt="Recuerdo de Alexander y Luz Clara" loading="lazy">
+          <div class="moment-photo">
 
-          <span>
-            ✧
-          </span>
+            <img src="img/foto2.jpeg" alt="Momento especial" loading="lazy">
+
+          </div>
+
+          <p>
+            Cada momento
+            nos trajo hasta aquí.
+          </p>
 
         </div>
 
 
-        <div class="memory memory-three">
+        <div class="moment moment-2">
 
-          <img src="img/foto4.jpeg" alt="Recuerdo de Alexander y Luz Clara" loading="lazy">
+          <div class="moment-photo">
 
-          <span>
-            ✦
-          </span>
+            <img src="img/foto3.jpeg" alt="Momento especial" loading="lazy">
+
+          </div>
+
+          <p>
+            Juntos construimos
+            nuestra historia.
+          </p>
+
+        </div>
+
+
+        <div class="moment moment-3">
+
+          <div class="moment-photo">
+
+            <img src="img/foto4.jpeg" alt="Momento especial" loading="lazy">
+
+          </div>
+
+          <p>
+            Y lo mejor
+            está por comenzar.
+          </p>
 
         </div>
 
@@ -555,9 +630,9 @@
     </section>
 
 
-    <!-- =====================================
+    <!-- =================================================
              06 · FINAL
-        ====================================== -->
+        ================================================== -->
 
     <section class="screen final-screen" data-index="5">
 
@@ -568,22 +643,18 @@
       <div class="final-glow"></div>
 
 
-      <span class="final-spark final-spark-one">
+      <span class="final-spark final-spark-1">
         ✦
       </span>
 
-      <span class="final-spark final-spark-two">
+      <span class="final-spark final-spark-2">
         ✧
-      </span>
-
-      <span class="final-spark final-spark-three">
-        ✦
       </span>
 
 
       <div class="final-content">
 
-        <span class="small-label reveal-up">
+        <span class="section-label reveal-up">
           NUESTRO PARA SIEMPRE
         </span>
 
@@ -605,20 +676,131 @@
         </h2>
 
 
-        <div class="final-line reveal-up"></div>
+        <div class="final-line"></div>
 
 
         <p class="reveal-up">
-          Comienza una nueva historia.
+
+          Gracias por acompañarnos.
+
         </p>
 
 
-        <span class="final-date reveal-up">
-          20 · 12 · 2026
-        </span>
+        <p class="final-message reveal-up">
+
+          Estaremos muy felices de contar
+          con ustedes y compartir este
+          momento único de nuestras vidas.
+
+        </p>
 
 
         <span class="heart reveal-up">
+          ♡
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+             07 · DETALLES
+        ================================================== -->
+
+    <section class="screen details-screen" data-index="6">
+
+      <div class="details-content">
+
+        <span class="section-label reveal-up">
+          PARA TENER EN CUENTA
+        </span>
+
+
+        <h2 class="reveal-up">
+          Detalles
+        </h2>
+
+
+        <!-- CEREMONIA -->
+
+        <div class="detail-card reveal-left">
+
+          <span class="detail-icon">
+            ♰
+          </span>
+
+          <div>
+
+            <small>
+              CEREMONIA
+            </small>
+
+            <strong>
+              17:00 HRS.
+            </strong>
+
+            <span>
+              NOMBRE DE LA IGLESIA
+            </span>
+
+          </div>
+
+
+          <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
+            ↗
+          </a>
+
+        </div>
+
+
+        <!-- CELEBRACIÓN -->
+
+        <div class="detail-card reveal-right">
+
+          <span class="detail-icon">
+            ✦
+          </span>
+
+          <div>
+
+            <small>
+              CELEBRACIÓN
+            </small>
+
+            <strong>
+              19:30 HRS.
+            </strong>
+
+            <span>
+              LOCAL TRANS ROSARIO
+            </span>
+
+          </div>
+
+
+          <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
+            ↗
+          </a>
+
+        </div>
+
+
+        <div class="details-date reveal-up">
+
+          5 DE SEPTIEMBRE
+
+        </div>
+
+
+        <p class="details-end reveal-up">
+
+          Alexander & Luz Clara
+
+        </p>
+
+
+        <span class="details-heart reveal-up">
           ♡
         </span>
 
