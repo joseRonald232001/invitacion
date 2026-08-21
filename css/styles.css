@@ -1,7 +1,3 @@
-/* =========================================================
-   RESET
-========================================================= */
-
 * {
   margin: 0;
   padding: 0;
@@ -10,15 +6,17 @@
 
 :root {
 
-  --cream: #f5eee5;
-  --cream-dark: #e8d8c7;
+  --paper: #f7f4ed;
+  --paper-2: #eee9df;
 
-  --brown: #403832;
-  --brown-light: #665b53;
+  --green: #355b59;
+  --green-dark: #294744;
 
-  --gold: #c7a574;
-  --gold-light: #ecd5aa;
-  --gold-dark: #a98557;
+  --gold: #b9975b;
+  --gold-light: #d9c594;
+
+  --ink: #302d29;
+  --muted: #746e66;
 
   --white: #fff;
 
@@ -28,16 +26,8 @@
 
 html {
 
-  width: 100%;
-
-  background:
-    var(--brown);
-
-  scroll-behavior:
-    smooth;
-
-  scroll-snap-type:
-    y mandatory;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 
 }
 
@@ -48,11 +38,11 @@ body {
 
   overflow-x: hidden;
 
-  background:
-    var(--cream);
-
   color:
-    var(--brown);
+    var(--ink);
+
+  background:
+    var(--paper);
 
   font-family:
     "Montserrat",
@@ -60,8 +50,33 @@ body {
 
 }
 
+body,
+button,
+a {
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+.screen {
+
+  position: relative;
+
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
+
+  overflow: hidden;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+
+}
+
 h1,
-h2 {
+h2,
+p {
 
   font-family:
     "Cormorant Garamond",
@@ -69,26 +84,50 @@ h2 {
 
 }
 
-button,
-a {
 
-  font-family:
-    inherit;
+/* =====================================================
+   TEXTURA DE PAPEL
+===================================================== */
+
+.paper-grain {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: .7;
+
+  background:
+
+    radial-gradient(circle at 20% 20%,
+      rgba(100, 80, 50, .08) 0 1px,
+      transparent 1.5px),
+
+    radial-gradient(circle at 80% 70%,
+      rgba(100, 80, 50, .06) 0 1px,
+      transparent 1.5px),
+
+    linear-gradient(110deg,
+      rgba(255, 255, 255, .55),
+      transparent 35%,
+      rgba(110, 90, 60, .04));
+
+  background-size:
+    17px 17px,
+    23px 23px,
+    100% 100%;
+
+  mix-blend-mode:
+    multiply;
 
 }
 
-img {
 
-  display: block;
-
-  width: 100%;
-
-}
-
-
-/* =========================================================
+/* =====================================================
    LOADER
-========================================================= */
+===================================================== */
 
 .loader {
 
@@ -98,16 +137,12 @@ img {
 
   z-index: 9999;
 
-  display: flex;
+  display: grid;
 
-  align-items: center;
-
-  justify-content: center;
+  place-items: center;
 
   background:
-    radial-gradient(circle,
-      #eee3d6,
-      #cdbbaa);
+    var(--paper);
 
   transition:
     opacity .8s ease,
@@ -119,33 +154,53 @@ img {
 
   opacity: 0;
 
-  visibility: hidden;
+  visibility:
+    hidden;
 
 }
 
-.loader-inner {
+.loader-ring {
 
-  width:
-    min(88%, 500px);
+  position: absolute;
 
-  text-align:
-    center;
+  width: 55px;
+  height: 55px;
 
-}
+  border:
+    1px solid var(--gold);
 
-.loader-symbol {
-
-  display:
-    block;
-
-  color:
-    var(--gold);
-
-  font-size:
-    30px;
+  border-radius:
+    50%;
 
   animation:
-    loaderPulse 2s infinite;
+    loaderPulse 1.5s infinite;
+
+}
+
+.loader-ring::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 8px;
+
+  border:
+    1px solid var(--green);
+
+  border-radius:
+    50%;
+
+}
+
+.loader span {
+
+  margin-top: 100px;
+
+  font-family:
+    "Cormorant Garamond";
+
+  font-size: 23px;
 
 }
 
@@ -154,169 +209,490 @@ img {
   50% {
 
     transform:
-      scale(1.3) rotate(45deg);
+      scale(1.35);
+
+    opacity: .35;
 
   }
 
 }
 
-.loader small {
+
+/* =====================================================
+   PROGRESO
+===================================================== */
+
+.screen-progress {
+
+  position: fixed;
+
+  z-index: 500;
+
+  top: 50%;
+
+  right: 12px;
+
+  transform:
+    translateY(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color:
+    var(--gold);
+
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+}
+
+.progress-track {
+
+  width: 1px;
+
+  height: 80px;
+
+  background:
+    rgba(185, 151, 91, .25);
+
+}
+
+.progress-track span {
+
+  display: block;
+
+  width: 100%;
+
+  height: 16.66%;
+
+  background:
+    var(--gold);
+
+  transition:
+    height .8s var(--ease);
+
+}
+
+
+/* =====================================================
+   TEXTOS PEQUEÑOS
+===================================================== */
+
+.micro-title {
+
+  display: block;
+
+  font-size: 8px;
+
+  font-weight: 600;
+
+  letter-spacing: 3px;
+
+  color:
+    var(--gold);
+
+}
+
+
+/* =====================================================
+   PORTADA
+===================================================== */
+
+.cover {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+
+    radial-gradient(circle at 50% 40%,
+      #fffdf8,
+      var(--paper));
+
+}
+
+.cover::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 15px;
+
+  border:
+    1px solid rgba(185, 151, 91, .35);
+
+  pointer-events: none;
+
+}
+
+.cover-content {
+
+  position:
+    relative;
+
+  z-index: 10;
+
+  width:
+    min(90%, 620px);
+
+  text-align:
+    center;
+
+}
+
+.cover .micro-title {
+
+  color:
+    var(--green);
+
+}
+
+.names {
+
+  margin-top:
+    15px;
+
+  line-height:
+    .7;
+
+}
+
+.names span {
 
   display:
     block;
 
-  margin-top:
-    18px;
+  font-family:
+    "Parisienne",
+    cursive;
 
   font-size:
-    8px;
+    clamp(4.4rem, 17vw, 8rem);
 
-  letter-spacing:
-    4px;
+  font-weight:
+    400;
+
+  color:
+    var(--green);
+
+  opacity: 0;
+
+  transform:
+    translateY(25px);
 
 }
 
-.loader h2 {
+.screen.active .names span {
 
-  margin-top:
-    22px;
-
-  font-size:
-    clamp(3.5rem,
-      13vw,
-      5.5rem);
-
-  line-height:
-    .75;
+  animation:
+    nameIn 1s .2s forwards var(--ease);
 
 }
 
-.loader h2 span {
+.screen.active .names span:last-child {
+
+  animation-delay:
+    .5s;
+
+}
+
+.names small {
 
   display:
     block;
 
   margin:
-    12px 0;
+    13px 0;
 
   color:
     var(--gold);
 
+  font-family:
+    "Cormorant Garamond";
+
   font-size:
-    2rem;
-
-}
-
-.loader-line {
-
-  width:
-    100%;
-
-  height:
-    1px;
-
-  margin-top:
     35px;
 
-  overflow:
-    hidden;
-
-  background:
-    rgba(64, 56, 50, .2);
+  opacity: 0;
 
 }
 
-.loader-line span {
-
-  display:
-    block;
-
-  width:
-    0;
-
-  height:
-    100%;
-
-  background:
-    var(--gold);
+.screen.active .names small {
 
   animation:
-    loaderLoading 2.2s forwards;
+    fadeIn .8s .4s forwards;
 
 }
 
-@keyframes loaderLoading {
+@keyframes nameIn {
 
   to {
 
-    width:
-      100%;
+    opacity: 1;
+
+    transform:
+      translateY(0);
 
   }
 
 }
 
-.loader p {
+@keyframes fadeIn {
 
-  margin-top:
-    15px;
+  to {
 
-  color:
-    var(--brown-light);
+    opacity: 1;
 
-  font-size:
-    8px;
+  }
 
 }
 
 
-/* =========================================================
-   SCREEN
-========================================================= */
+/* =====================================================
+   FECHA PORTADA
+===================================================== */
 
-.screen {
+.cover-date {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    13px;
+
+  margin:
+    25px auto;
+
+  color:
+    var(--green);
+
+}
+
+.cover-date>span {
+
+  font-family:
+    "Cormorant Garamond";
+
+  font-size:
+    55px;
+
+  line-height:
+    .7;
+
+}
+
+.cover-date div {
+
+  text-align:
+    left;
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    3px;
+
+}
+
+.cover-date b {
+
+  display:
+    block;
+
+  margin-top:
+    4px;
+
+  font-weight:
+    500;
+
+}
+
+
+/* =====================================================
+   CARTA
+===================================================== */
+
+.invitation-card {
 
   position:
     relative;
 
   width:
-    100%;
+    min(65vw, 260px);
 
   height:
-    100svh;
+    min(40vw, 175px);
 
-  min-height:
-    100svh;
+  margin:
+    20px auto 0;
 
-  overflow:
-    hidden;
+  display:
+    grid;
 
-  scroll-snap-align:
-    start;
+  place-items:
+    center;
 
-  scroll-snap-stop:
-    always;
+  background:
+    var(--green);
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    0 30px 50px rgba(40, 65, 60, .25);
+
+  transition:
+    transform 1.2s var(--ease);
 
 }
 
+.invitation-card::before {
 
-/* =========================================================
-   PROGRESO
-========================================================= */
+  content: "";
 
-.progress {
+  position: absolute;
 
-  position:
-    fixed;
+  inset: 10px;
 
-  z-index:
-    2000;
+  border:
+    1px solid rgba(217, 197, 148, .55);
 
-  top:
+}
+
+.invitation-card::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -10px;
+
+  border:
+    1px solid rgba(185, 151, 91, .2);
+
+  opacity: 0;
+
+  transition:
+    .4s ease;
+
+}
+
+.invitation-card:hover::after {
+
+  opacity: 1;
+
+}
+
+.card-glow {
+
+  position: absolute;
+
+  width: 80px;
+  height: 80px;
+
+  border-radius:
     50%;
 
-  right:
-    10px;
+  background:
+    rgba(217, 197, 148, .2);
+
+  filter:
+    blur(20px);
+
+  animation:
+    cardGlow 2s infinite;
+
+}
+
+@keyframes cardGlow {
+
+  50% {
+
+    transform:
+      scale(1.7);
+
+    opacity: .3;
+
+  }
+
+}
+
+.card-seal {
+
+  position: absolute;
+
+  bottom: -18px;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  width: 42px;
+  height: 42px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  border:
+    1px solid var(--gold-light);
+
+  border-radius:
+    50%;
+
+  background:
+    var(--green-dark);
+
+  color:
+    var(--gold-light);
+
+  z-index: 3;
+
+  animation:
+    sealPulse 1.6s infinite;
+
+}
+
+@keyframes sealPulse {
+
+  50% {
+
+    box-shadow:
+      0 0 0 12px rgba(185, 151, 91, .08),
+      0 0 30px rgba(185, 151, 91, .35);
+
+  }
+
+}
+
+.card-open {
+
+  position:
+    relative;
+
+  z-index: 2;
 
   display:
     flex;
@@ -327,157 +703,553 @@ img {
   align-items:
     center;
 
-  gap:
-    10px;
-
   color:
     white;
 
-  transform:
-    translateY(-50%);
-
-  mix-blend-mode:
-    difference;
-
 }
 
-.progress-number {
-
-  display:
-    flex;
-
-  gap:
-    3px;
+.card-open span {
 
   font-size:
     8px;
+
+  letter-spacing:
+    4px;
+
+}
+
+.card-open strong {
+
+  margin-top:
+    5px;
+
+  font-family:
+    "Cormorant Garamond";
+
+  font-size:
+    26px;
+
+  font-weight:
+    400;
 
   letter-spacing:
     2px;
 
 }
 
-.progress-number i {
+.card-open i {
+
+  margin-top:
+    8px;
+
+  color:
+    var(--gold-light);
+
+  font-size:
+    19px;
 
   font-style:
     normal;
 
-  opacity:
-    .5;
+  animation:
+    tapArrow 1s infinite;
 
 }
 
-.progress-dots {
+@keyframes tapArrow {
+
+  50% {
+
+    transform:
+      translateY(6px);
+
+  }
+
+}
+
+.reserved {
+
+  margin-top:
+    25px;
+
+  font-size:
+    18px;
+
+}
+
+.reserved strong {
+
+  color:
+    var(--gold);
+
+  font-size:
+    28px;
+
+}
+
+.touch-hint {
 
   display:
     flex;
 
-  flex-direction:
-    column;
+  align-items:
+    center;
+
+  justify-content:
+    center;
 
   gap:
-    8px;
+    10px;
+
+  margin-top:
+    13px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    3px;
 
 }
 
-.progress-dots button {
+.touch-hint span {
 
   width:
-    5px;
+    22px;
 
   height:
-    5px;
-
-  padding:
-    0;
-
-  border:
-    0;
-
-  border-radius:
-    50%;
-
-  background:
-    rgba(255, 255, 255, .45);
-
-  transition:
-    .4s var(--ease);
-
-}
-
-.progress-dots button.active {
-
-  width:
-    9px;
-
-  height:
-    9px;
+    1px;
 
   background:
     var(--gold);
 
-  box-shadow:
-    0 0 14px rgba(200, 165, 116, .9);
-
 }
 
 
-/* =========================================================
-   REVEALS
-========================================================= */
+/* CARTA ABIERTA */
 
-.reveal-left,
-.reveal-right,
-.reveal-up {
+.cover.opening .invitation-card {
+
+  transform:
+    scale(8) translateY(30px);
+
+  box-shadow:
+    0 0 0 transparent;
+
+}
+
+.cover.opening .card-open,
+.cover.opening .card-seal {
 
   opacity:
     0;
 
 }
 
-.reveal-left {
-
-  transform:
-    translateX(-70px);
-
-}
-
-.reveal-right {
-
-  transform:
-    translateX(70px);
-
-}
-
-.reveal-up {
-
-  transform:
-    translateY(40px);
-
-}
-
-.screen.active .reveal-left {
+.cover.opening {
 
   animation:
-    revealLeft .9s .1s forwards var(--ease);
+    coverOut 1.5s .35s forwards;
 
 }
 
-.screen.active .reveal-right {
+@keyframes coverOut {
+
+  to {
+
+    transform:
+      translateY(-100%);
+
+  }
+
+}
+
+
+/* =====================================================
+   BOTÁNICA
+===================================================== */
+
+.botanical {
+
+  position:
+    absolute;
+
+  width:
+    130px;
+
+  height:
+    220px;
+
+  opacity:
+    .45;
+
+}
+
+.botanical-a {
+
+  left:
+    -45px;
+
+  top:
+    5%;
+
+  transform:
+    rotate(-25deg);
+
+}
+
+.botanical-b {
+
+  right:
+    -45px;
+
+  bottom:
+    4%;
+
+  transform:
+    rotate(155deg);
+
+}
+
+.botanical::before {
+
+  content: "";
+
+  position: absolute;
+
+  left:
+    50%;
+
+  width:
+    1px;
+
+  height:
+    100%;
+
+  background:
+    var(--green);
+
+  transform:
+    rotate(-18deg);
+
+}
+
+.botanical span {
+
+  position:
+    absolute;
+
+  width:
+    35px;
+
+  height:
+    16px;
+
+  border:
+    1px solid var(--green);
+
+  border-radius:
+    100% 0 100% 0;
+
+}
+
+.botanical span:nth-child(1) {
+
+  top:
+    30px;
+
+  left:
+    15px;
+
+  transform:
+    rotate(-30deg);
+
+}
+
+.botanical span:nth-child(2) {
+
+  top:
+    70px;
+
+  right:
+    5px;
+
+  transform:
+    rotate(25deg);
+
+}
+
+.botanical span:nth-child(3) {
+
+  top:
+    120px;
+
+  left:
+    5px;
+
+  transform:
+    rotate(-30deg);
+
+}
+
+.botanical i {
+
+  position:
+    absolute;
+
+  top:
+    170px;
+
+  right:
+    0;
+
+  width:
+    50px;
+
+  height:
+    25px;
+
+  border:
+    1px solid var(--gold);
+
+  border-radius:
+    100% 0 100% 0;
+
+}
+
+
+/* =====================================================
+   PÉTALOS
+===================================================== */
+
+.petals i,
+.celebration-petals i {
+
+  position:
+    absolute;
+
+  width:
+    12px;
+
+  height:
+    22px;
+
+  border-radius:
+    100% 0 100% 0;
+
+  background:
+    rgba(185, 151, 91, .45);
 
   animation:
-    revealRight .9s .2s forwards var(--ease);
+    petalFall 8s linear infinite;
 
 }
 
-.screen.active .reveal-up {
+.petals i:nth-child(1) {
+  left: 8%;
+  animation-delay: 0s;
+}
+
+.petals i:nth-child(2) {
+  left: 25%;
+  animation-delay: 2s;
+}
+
+.petals i:nth-child(3) {
+  left: 42%;
+  animation-delay: 4s;
+}
+
+.petals i:nth-child(4) {
+  left: 61%;
+  animation-delay: 1s;
+}
+
+.petals i:nth-child(5) {
+  left: 77%;
+  animation-delay: 5s;
+}
+
+.petals i:nth-child(6) {
+  left: 91%;
+  animation-delay: 3s;
+}
+
+@keyframes petalFall {
+
+  0% {
+
+    top:
+      -30px;
+
+    opacity:
+      0;
+
+    transform:
+      rotate(0) translateX(0);
+
+  }
+
+  15% {
+
+    opacity:
+      .8;
+
+  }
+
+  50% {
+
+    transform:
+      translateX(35px) rotate(160deg);
+
+  }
+
+  100% {
+
+    top:
+      110%;
+
+    opacity:
+      0;
+
+    transform:
+      translateX(-30px) rotate(320deg);
+
+  }
+
+}
+
+
+/* =====================================================
+   SEGUNDA
+===================================================== */
+
+.wedding {
+
+  background:
+    var(--paper-2);
+
+}
+
+.wedding-top {
+
+  position:
+    absolute;
+
+  top:
+    5%;
+
+  left:
+    7%;
+
+}
+
+.section-number {
+
+  display:
+    block;
+
+  margin-bottom:
+    5px;
+
+  color:
+    var(--gold);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    3px;
+
+}
+
+.wedding-title {
+
+  position:
+    absolute;
+
+  top:
+    11%;
+
+  right:
+    7%;
+
+  text-align:
+    right;
+
+}
+
+.wedding-title span {
+
+  display:
+    block;
+
+  color:
+    var(--muted);
+
+  font-family:
+    "Cormorant Garamond";
+
+  font-size:
+    23px;
+
+}
+
+.wedding-title h2 {
+
+  margin-top:
+    -8px;
+
+  color:
+    var(--green);
+
+  font-size:
+    clamp(4.5rem, 15vw, 8rem);
+
+  line-height:
+    .65;
+
+}
+
+.hero-photo {
+
+  position:
+    absolute;
+
+  top:
+    27%;
+
+  left:
+    0;
+
+  width:
+    100%;
+
+  height:
+    46%;
+
+  overflow:
+    hidden;
+
+  opacity:
+    0;
+
+  transform:
+    translateX(-100px);
+
+}
+
+.screen.active .hero-photo {
 
   animation:
-    revealUp .9s .15s forwards var(--ease);
+    photoEnter 1.2s .2s forwards var(--ease);
 
 }
 
-@keyframes revealLeft {
+@keyframes photoEnter {
 
   to {
 
@@ -491,21 +1263,198 @@ img {
 
 }
 
-@keyframes revealRight {
+.hero-photo img {
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  object-fit:
+    cover;
+
+  object-position:
+    center;
+
+  clip-path:
+    polygon(0 4%,
+      3% 1%,
+      7% 5%,
+      12% 0,
+      18% 4%,
+      24% 1%,
+      31% 5%,
+      38% 0,
+      46% 4%,
+      54% 1%,
+      62% 5%,
+      70% 0,
+      78% 4%,
+      86% 1%,
+      94% 5%,
+      100% 1%,
+
+      100% 96%,
+      94% 100%,
+      87% 96%,
+      80% 100%,
+      72% 96%,
+      65% 100%,
+      57% 96%,
+      49% 100%,
+      41% 96%,
+      33% 100%,
+      25% 96%,
+      17% 100%,
+      9% 96%,
+      0 100%);
+
+}
+
+.photo-frame-top,
+.photo-frame-bottom {
+
+  position:
+    absolute;
+
+  z-index:
+    3;
+
+  width:
+    100%;
+
+  height:
+    45px;
+
+  background:
+    var(--paper-2);
+
+}
+
+.photo-frame-top {
+
+  top:
+    -1px;
+
+  clip-path:
+    polygon(0 0,
+      100% 0,
+      100% 40%,
+      94% 70%,
+      88% 45%,
+      81% 80%,
+      73% 45%,
+      65% 75%,
+      57% 40%,
+      48% 78%,
+      39% 45%,
+      30% 80%,
+      21% 42%,
+      12% 75%,
+      5% 45%,
+      0 70%);
+
+}
+
+.photo-frame-bottom {
+
+  bottom:
+    -1px;
+
+  clip-path:
+    polygon(0 60%,
+      5% 30%,
+      12% 55%,
+      21% 20%,
+      30% 58%,
+      39% 25%,
+      48% 60%,
+      57% 22%,
+      65% 55%,
+      73% 20%,
+      81% 55%,
+      88% 25%,
+      94% 60%,
+      100% 30%,
+      100% 100%,
+      0 100%);
+
+}
+
+.photo-shine {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  z-index:
+    4;
+
+  background:
+    linear-gradient(105deg,
+      transparent 30%,
+      rgba(255, 255, 255, .55),
+      transparent 65%);
+
+  transform:
+    translateX(-120%);
+
+}
+
+.screen.active .photo-shine {
+
+  animation:
+    shine 1.5s 1s forwards;
+
+}
+
+@keyframes shine {
 
   to {
 
-    opacity:
-      1;
-
     transform:
-      translateX(0);
+      translateX(120%);
 
   }
 
 }
 
-@keyframes revealUp {
+.verse {
+
+  position:
+    absolute;
+
+  left:
+    8%;
+
+  bottom:
+    7%;
+
+  width:
+    84%;
+
+  text-align:
+    center;
+
+  opacity:
+    0;
+
+  transform:
+    translateY(30px);
+
+}
+
+.screen.active .verse {
+
+  animation:
+    textUp 1s 1s forwards var(--ease);
+
+}
+
+@keyframes textUp {
 
   to {
 
@@ -519,72 +1468,434 @@ img {
 
 }
 
+.verse-line {
 
-/* =========================================================
-   DECORACIÓN
-========================================================= */
+  display:
+    block;
 
-.spark,
-.floating-stars span,
-.falling-stars span,
-.gallery-stars span,
-.celebration-decoration span,
-.final-star {
+  width:
+    45px;
 
-  position:
-    absolute;
+  height:
+    1px;
+
+  margin:
+    0 auto 10px;
+
+  background:
+    var(--gold);
+
+}
+
+.verse p {
+
+  font-size:
+    clamp(1.15rem, 4vw, 1.55rem);
+
+  line-height:
+    1.08;
+
+}
+
+.verse strong {
+
+  display:
+    block;
+
+  margin-top:
+    9px;
 
   color:
-    var(--gold-light);
+    var(--gold);
 
-  text-shadow:
-    0 0 15px rgba(236, 213, 170, .9);
+  font-size:
+    7px;
 
-  pointer-events:
-    none;
+  letter-spacing:
+    3px;
 
 }
 
 
-/* =========================================================
-   01 · HERO
-========================================================= */
+/* =====================================================
+   TERCERA
+===================================================== */
 
-.hero-screen {
+.blessing {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    var(--paper);
+
+}
+
+.blessing-content {
+
+  position:
+    relative;
+
+  z-index:
+    5;
+
+  width:
+    88%;
+
+  text-align:
+    center;
+
+}
+
+.blessing-content h2 {
+
+  margin-top:
+    10px;
+
+  color:
+    var(--green);
+
+  font-size:
+    clamp(3.5rem, 11vw, 6rem);
+
+  line-height:
+    .65;
+
+}
+
+.blessing-content h2 em {
+
+  display:
+    block;
+
+  color:
+    var(--gold);
+
+  font-style:
+    normal;
+
+}
+
+.parents {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    15px;
+
+  margin-top:
+    30px;
+
+}
+
+.parents-side {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    3px;
+
+}
+
+.parents-side span {
+
+  margin-bottom:
+    3px;
+
+  color:
+    var(--gold);
+
+  font-size:
+    7px;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    2px;
+
+}
+
+.parents-side strong {
+
+  font-family:
+    "Cormorant Garamond";
+
+  font-size:
+    18px;
+
+  font-weight:
+    600;
+
+}
+
+.gold-divider {
+
+  width:
+    45px;
+
+  height:
+    1px;
+
+  margin:
+    2px auto;
+
+  background:
+    var(--gold);
+
+}
+
+.rings {
+
+  position:
+    relative;
+
+  width:
+    80px;
+
+  height:
+    50px;
+
+  margin:
+    18px auto 0;
+
+}
+
+.ring {
+
+  position:
+    absolute;
+
+  width:
+    45px;
+
+  height:
+    45px;
+
+  border:
+    4px solid var(--gold);
+
+  border-radius:
+    50%;
+
+  box-shadow:
+    0 0 15px rgba(185, 151, 91, .2);
+
+}
+
+.ring-one {
+
+  left:
+    8px;
+
+  transform:
+    rotate(-20deg);
+
+}
+
+.ring-two {
+
+  right:
+    8px;
+
+  transform:
+    rotate(20deg);
+
+}
+
+.invitation-message {
+
+  margin-top:
+    5px;
+
+  color:
+    var(--green);
+
+  font-size:
+    20px;
+
+}
+
+.date-display {
+
+  margin-top:
+    10px;
+
+  color:
+    var(--green);
+
+}
+
+.date-display span {
+
+  display:
+    block;
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    5px;
+
+}
+
+.date-display strong {
+
+  display:
+    block;
+
+  margin:
+    -5px 0;
+
+  font-family:
+    "Cormorant Garamond";
+
+  font-size:
+    80px;
+
+  line-height:
+    .8;
+
+  font-weight:
+    500;
+
+}
+
+.date-display small {
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    3px;
+
+}
+
+.floating-leaves i {
+
+  position:
+    absolute;
+
+  width:
+    20px;
+
+  height:
+    35px;
+
+  border:
+    1px solid var(--green);
+
+  border-radius:
+    100% 0 100% 0;
+
+  opacity:
+    .25;
+
+  animation:
+    leafFloat 7s ease-in-out infinite;
+
+}
+
+.floating-leaves i:nth-child(1) {
+
+  left:
+    8%;
+
+  top:
+    20%;
+
+}
+
+.floating-leaves i:nth-child(2) {
+
+  right:
+    8%;
+
+  top:
+    30%;
+
+  animation-delay:
+    1s;
+
+}
+
+.floating-leaves i:nth-child(3) {
+
+  left:
+    15%;
+
+  bottom:
+    15%;
+
+  animation-delay:
+    3s;
+
+}
+
+.floating-leaves i:nth-child(4) {
+
+  right:
+    16%;
+
+  bottom:
+    20%;
+
+  animation-delay:
+    4s;
+
+}
+
+.floating-leaves i:nth-child(5) {
+
+  left:
+    50%;
+
+  top:
+    12%;
+
+  animation-delay:
+    2s;
+
+}
+
+@keyframes leafFloat {
+
+  50% {
+
+    transform:
+      translateY(-20px) rotate(25deg);
+
+  }
+
+}
+
+
+/* =====================================================
+   CUARTA
+===================================================== */
+
+.ceremony {
 
   color:
     white;
 
 }
 
-.hero-bg {
-
-  position:
-    absolute;
-
-  inset:
-    -5%;
-
-  background:
-    url("../img/portada.jpeg") center / cover no-repeat;
-
-  animation:
-    heroZoom 14s ease-in-out infinite alternate;
-
-}
-
-@keyframes heroZoom {
-
-  to {
-
-    transform:
-      scale(1.08);
-
-  }
-
-}
-
-.hero-overlay {
+.ceremony-background {
 
   position:
     absolute;
@@ -592,60 +1903,41 @@ img {
   inset:
     0;
 
-  /*
-        Esta zona oscura hace que
-        las letras pequeñas sean
-        mucho más fáciles de leer.
-    */
-
   background:
-    linear-gradient(180deg,
-      rgba(15, 12, 10, .18) 0%,
-      rgba(15, 12, 10, .32) 35%,
-      rgba(15, 12, 10, .78) 100%);
+    linear-gradient(rgba(35, 43, 39, .65),
+      rgba(35, 43, 39, .8)),
+    url("../img/foto3.jpeg") center / cover;
+
+  transform:
+    scale(1.04);
 
 }
 
-.hero-light {
+.ceremony-overlay {
 
   position:
     absolute;
 
-  left:
-    50%;
-
-  top:
-    48%;
-
-  width:
-    600px;
-
-  height:
-    600px;
-
-  transform:
-    translate(-50%, -50%);
-
-  border-radius:
-    50%;
+  inset:
+    0;
 
   background:
-    radial-gradient(circle,
-      rgba(210, 177, 128, .17),
-      transparent 68%);
+    radial-gradient(circle at center,
+      transparent,
+      rgba(25, 35, 31, .4));
 
 }
 
-.hero-content {
+.ceremony-content {
 
   position:
     relative;
 
   z-index:
-    3;
+    5;
 
   width:
-    min(90%, 900px);
+    90%;
 
   height:
     100%;
@@ -670,190 +1962,64 @@ img {
 
 }
 
-.hero-top {
+.church-mark {
 
-  padding:
-    7px 16px;
+  width:
+    55px;
 
-  border-radius:
-    30px;
-
-  background:
-    rgba(0, 0, 0, .18);
-
-  backdrop-filter:
-    blur(5px);
-
-  text-shadow:
-    0 2px 10px rgba(0, 0, 0, .9);
-
-}
-
-.hero-top span {
-
-  font-size:
-    clamp(10px,
-      1.8vw,
-      14px);
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    3px;
-
-}
-
-.names {
-
-  margin-top:
-    28px;
+  height:
+    55px;
 
   display:
-    flex;
+    grid;
 
-  flex-direction:
-    column;
-
-  align-items:
+  place-items:
     center;
 
-  font-size:
-    clamp(4.3rem,
-      15vw,
-      8rem);
+  border:
+    1px solid var(--gold-light);
 
-  line-height:
-    .62;
-
-  text-shadow:
-    0 4px 20px rgba(0, 0, 0, .7);
-
-}
-
-.names .name {
-
-  display:
-    block;
-
-}
-
-.name-left {
-
-  opacity:
-    0;
-
-  transform:
-    translateX(-80px);
-
-}
-
-.name-right {
-
-  opacity:
-    0;
-
-  transform:
-    translateX(80px);
-
-}
-
-.hero-screen.active .name-left {
-
-  animation:
-    nameLeft 1s .2s forwards var(--ease);
-
-}
-
-.hero-screen.active .name-right {
-
-  animation:
-    nameRight 1s .5s forwards var(--ease);
-
-}
-
-@keyframes nameLeft {
-
-  to {
-
-    opacity:
-      1;
-
-    transform:
-      translateX(0);
-
-  }
-
-}
-
-@keyframes nameRight {
-
-  to {
-
-    opacity:
-      1;
-
-    transform:
-      translateX(0);
-
-  }
-
-}
-
-.names strong {
-
-  margin:
-    17px 0;
+  border-radius:
+    50%;
 
   color:
     var(--gold-light);
 
   font-size:
-    2.5rem;
+    30px;
 
-  font-weight:
-    400;
+  box-shadow:
+    0 0 35px rgba(217, 197, 148, .25);
+
+}
+
+.ceremony-content h2 {
+
+  margin-top:
+    15px;
+
+  font-size:
+    clamp(4rem, 13vw, 7rem);
+
+  line-height:
+    .62;
+
+}
+
+.ceremony-content h2 em {
+
+  display:
+    block;
+
+  color:
+    var(--gold-light);
 
   font-style:
-    italic;
-
-  opacity:
-    0;
+    normal;
 
 }
 
-.hero-screen.active .names strong {
-
-  animation:
-    ampersand .7s .4s forwards var(--ease);
-
-}
-
-@keyframes ampersand {
-
-  from {
-
-    opacity:
-      0;
-
-    transform:
-      scale(.3);
-
-  }
-
-  to {
-
-    opacity:
-      1;
-
-    transform:
-      scale(1);
-
-  }
-
-}
-
-.date-info {
+.ceremony-date {
 
   display:
     flex;
@@ -862,1029 +2028,326 @@ img {
     center;
 
   gap:
-    14px;
+    12px;
 
   margin-top:
-    55px;
-
-  padding:
-    9px 18px;
-
-  border-top:
-    1px solid rgba(255, 255, 255, .35);
-
-  border-bottom:
-    1px solid rgba(255, 255, 255, .35);
-
-  background:
-    rgba(0, 0, 0, .15);
-
-  text-shadow:
-    0 2px 10px rgba(0, 0, 0, .9);
+    30px;
 
 }
 
-.date-info strong {
+.ceremony-date>span {
+
+  font-family:
+    "Cormorant Garamond";
 
   font-size:
-    clamp(12px,
-      2vw,
-      16px);
+    65px;
 
-  font-weight:
-    600;
-
-  letter-spacing:
-    2px;
-
-}
-
-.date-info span {
+  line-height:
+    .7;
 
   color:
     var(--gold-light);
 
 }
 
-.ceremony-label {
+.ceremony-date div {
 
-  margin-top:
-    17px;
+  text-align:
+    left;
 
-  padding:
-    5px 12px;
+}
 
-  background:
-    rgba(0, 0, 0, .2);
+.ceremony-date strong {
+
+  display:
+    block;
 
   font-size:
     9px;
 
-  font-weight:
-    600;
-
   letter-spacing:
     3px;
 
-  text-shadow:
-    0 2px 10px rgba(0, 0, 0, .9);
-
 }
 
-
-/* =========================================================
-   AUDIO ZONE
-========================================================= */
-
-.audio-zone {
-
-  position:
-    absolute;
-
-  left:
-    0;
-
-  bottom:
-    0;
-
-  z-index:
-    10;
-
-  width:
-    100%;
-
-  height:
-    50%;
-
-  cursor:
-    pointer;
-
-}
-
-
-/* =========================================================
-   START HINT
-========================================================= */
-
-.start-hint {
-
-  position:
-    absolute;
-
-  z-index:
-    20;
-
-  left:
-    0;
-
-  bottom:
-    28px;
-
-  width:
-    100%;
+.ceremony-date small {
 
   display:
-    flex;
+    block;
 
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
-  pointer-events:
-    none;
-
-  opacity:
-    0;
-
-  text-shadow:
-    0 2px 14px rgba(0, 0, 0, .95);
-
-}
-
-.hero-screen.active .start-hint {
-
-  animation:
-    hintAppear .8s 1s forwards;
-
-}
-
-@keyframes hintAppear {
-
-  to {
-
-    opacity:
-      1;
-
-  }
-
-}
-
-.start-hint>span {
+  margin-top:
+    3px;
 
   font-size:
-    clamp(10px,
-      2.4vw,
-      13px);
+    8px;
 
-  font-weight:
-    600;
+}
+
+.countdown-title {
+
+  margin-top:
+    24px;
+
+  color:
+    var(--gold-light);
+
+  font-size:
+    7px;
 
   letter-spacing:
     4px;
 
 }
 
-.start-arrow {
-
-  position:
-    relative;
-
-  margin-top:
-    6px;
-
-  color:
-    var(--gold-light);
-
-  font-size:
-    40px;
-
-  line-height:
-    1;
-
-  text-shadow:
-    0 0 18px rgba(236, 213, 170, .9);
-
-  animation:
-    arrowBounce 1.3s infinite;
-
-}
-
-.start-arrow::before {
-
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    -10px;
-
-  border:
-    1px solid rgba(236, 213, 170, .45);
-
-  border-radius:
-    50%;
-
-  animation:
-    arrowRing 1.8s infinite;
-
-}
-
-@keyframes arrowBounce {
-
-  50% {
-
-    transform:
-      translateY(10px);
-
-  }
-
-}
-
-@keyframes arrowRing {
-
-  50% {
-
-    opacity:
-      .1;
-
-    transform:
-      scale(1.3);
-
-  }
-
-}
-
-
-/* =========================================================
-   CONTINUE HINT
-========================================================= */
-
-.continue-hint {
-
-  position:
-    absolute;
-
-  z-index:
-    100;
-
-  right:
-    18px;
-
-  bottom:
-    25px;
+.countdown {
 
   display:
     flex;
 
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
   gap:
-    6px;
+    7px;
 
-  color:
-    var(--gold-dark);
-
-  pointer-events:
-    none;
-
-  text-shadow:
-    0 1px 4px rgba(255, 255, 255, .8);
+  margin-top:
+    9px;
 
 }
 
-.continue-hint span {
+.countdown div {
+
+  min-width:
+    65px;
 
   padding:
-    7px 4px;
+    10px 4px;
 
-  writing-mode:
-    vertical-rl;
+  border:
+    1px solid rgba(217, 197, 148, .35);
 
-  font-size:
-    8px;
+  background:
+    rgba(20, 30, 27, .25);
 
-  font-weight:
-    600;
-
-  letter-spacing:
-    3px;
+  backdrop-filter:
+    blur(8px);
 
 }
 
-.continue-hint strong {
+.countdown strong {
 
-  font-size:
-    34px;
-
-  line-height:
-    1;
-
-  animation:
-    continueArrow 1.3s infinite;
-
-}
-
-@keyframes continueArrow {
-
-  50% {
-
-    transform:
-      translateY(9px);
-
-  }
-
-}
-
-.continue-light {
+  display:
+    block;
 
   color:
     var(--gold-light);
 
-}
+  font-family:
+    "Cormorant Garamond";
 
+  font-size:
+    29px;
 
-/* =========================================================
-   02 · STORY
-========================================================= */
-
-.story-screen {
-
-  background:
-    var(--cream);
+  line-height:
+    1;
 
 }
 
-.story-photo {
+.countdown span {
 
-  position:
-    absolute;
+  display:
+    block;
 
-  right:
-    5%;
+  margin-top:
+    4px;
 
-  top:
-    12%;
+  font-size:
+    5px;
 
-  width:
-    45%;
-
-  height:
-    61%;
-
-  overflow:
-    hidden;
-
-  opacity:
-    0;
+  letter-spacing:
+    1.5px;
 
 }
 
-.photo-right {
+.ceremony-location {
 
-  transform:
-    translateX(120px) rotate(3deg);
-
-}
-
-.story-screen.active .photo-right {
-
-  animation:
-    photoRight 1.1s .1s forwards var(--ease);
+  margin-top:
+    25px;
 
 }
 
-@keyframes photoRight {
+.ceremony-location>span {
 
-  to {
-
-    opacity:
-      1;
-
-    transform:
-      translateX(0) rotate(2deg);
-
-  }
-
-}
-
-.story-photo img {
-
-  width:
-    100%;
-
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-}
-
-.photo-border {
-
-  position:
-    absolute;
-
-  inset:
-    14px;
-
-  border:
-    1px solid rgba(255, 255, 255, .9);
-
-}
-
-.photo-shine {
-
-  position:
-    absolute;
-
-  top:
-    0;
-
-  left:
-    -100%;
-
-  width:
-    35%;
-
-  height:
-    100%;
-
-  background:
-    linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, .55),
-      transparent);
-
-  transform:
-    skewX(-20deg);
-
-}
-
-.story-screen.active .photo-shine {
-
-  animation:
-    shine 1.5s .7s forwards;
-
-}
-
-@keyframes shine {
-
-  to {
-
-    left:
-      150%;
-
-  }
-
-}
-
-.story-content {
-
-  position:
-    absolute;
-
-  left:
-    8%;
-
-  top:
-    50%;
-
-  width:
-    42%;
-
-  transform:
-    translateY(-50%);
-
-}
-
-.section-label {
+  display:
+    block;
 
   color:
-    var(--gold-dark);
+    var(--gold-light);
 
   font-size:
     9px;
 
-  font-weight:
-    600;
-
   letter-spacing:
     3px;
 
 }
 
-.story-content h2 {
-
-  margin-top:
-    22px;
-
-  font-size:
-    clamp(4.2rem,
-      8.5vw,
-      7rem);
-
-  line-height:
-    .66;
-
-}
-
-.story-content h2 span,
-.story-content h2 em {
+.ceremony-location strong {
 
   display:
     block;
 
-}
-
-.story-content h2 em {
-
   margin-top:
-    12px;
-
-  color:
-    var(--gold-dark);
-
-  font-style:
-    italic;
-
-}
-
-.title-left {
-
-  opacity:
-    0;
-
-  transform:
-    translateX(-80px);
-
-}
-
-.title-right {
-
-  opacity:
-    0;
-
-  transform:
-    translateX(80px);
-
-}
-
-.story-screen.active .title-left {
-
-  animation:
-    revealLeft 1s .25s forwards var(--ease);
-
-}
-
-.story-screen.active .title-right {
-
-  animation:
-    revealRight 1s .5s forwards var(--ease);
-
-}
-
-.story-content p {
-
-  max-width:
-    500px;
-
-  margin-top:
-    30px;
+    5px;
 
   font-family:
-    "Cormorant Garamond",
-    serif;
+    "Cormorant Garamond";
 
   font-size:
-    clamp(1.25rem,
-      2.7vw,
-      1.8rem);
-
-  line-height:
-    1.25;
+    23px;
 
 }
 
-
-/* =========================================================
-   ESTRELLAS FLOTANTES
-========================================================= */
-
-.floating-stars span:nth-child(1) {
-
-  left:
-    8%;
-
-  top:
-    15%;
-
-}
-
-.floating-stars span:nth-child(2) {
-
-  left:
-    72%;
-
-  top:
-    12%;
-
-}
-
-.floating-stars span:nth-child(3) {
-
-  left:
-    15%;
-
-  bottom:
-    22%;
-
-}
-
-.floating-stars span:nth-child(4) {
-
-  right:
-    8%;
-
-  bottom:
-    18%;
-
-}
-
-.floating-stars span:nth-child(5) {
-
-  left:
-    48%;
-
-  top:
-    8%;
-
-}
-
-.floating-stars span:nth-child(6) {
-
-  right:
-    30%;
-
-  bottom:
-    8%;
-
-}
-
-.floating-stars span {
-
-  animation:
-    floatingStar 4s ease-in-out infinite;
-
-}
-
-@keyframes floatingStar {
-
-  50% {
-
-    opacity:
-      .25;
-
-    transform:
-      translateY(-18px) scale(1.4);
-
-  }
-
-}
-
-
-/* =========================================================
-   03 · CHURCH
-========================================================= */
-
-.church-screen {
-
-  color:
-    white;
-
-}
-
-.church-bg {
-
-  position:
-    absolute;
-
-  inset:
-    -5%;
-
-  background:
-    url("../img/foto3.jpeg") center / cover no-repeat;
-
-  transform:
-    scale(1.04);
-
-}
-
-.church-overlay {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    rgba(28, 23, 19, .66);
-
-}
-
-.church-content {
-
-  position:
-    relative;
-
-  z-index:
-    10;
-
-  height:
-    100%;
+.ceremony-location a {
 
   display:
-    flex;
-
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  text-align:
-    center;
-
-}
-
-.church-content .section-label {
-
-  color:
-    var(--gold-light);
-
-}
-
-.church-cross {
-
-  margin-top:
-    18px;
-
-  color:
-    var(--gold-light);
-
-  font-size:
-    42px;
-
-  text-shadow:
-    0 0 20px rgba(236, 213, 170, .8);
-
-}
-
-.church-content h2 {
-
-  margin-top:
-    18px;
-
-  font-size:
-    clamp(5rem,
-      15vw,
-      9rem);
-
-  line-height:
-    .58;
-
-}
-
-.church-content h2 span,
-.church-content h2 em {
-
-  display:
-    block;
-
-}
-
-.church-content h2 em {
-
-  color:
-    var(--gold-light);
-
-  font-style:
-    italic;
-
-}
-
-.church-name {
-
-  margin-top:
-    30px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    clamp(1.5rem,
-      4vw,
-      2.2rem);
-
-}
-
-.church-info {
-
-  display:
-    flex;
+    inline-flex;
 
   align-items:
     center;
 
   gap:
-    15px;
+    10px;
 
   margin-top:
-    18px;
+    12px;
 
-}
+  padding:
+    10px 15px;
 
-.church-info strong {
+  border:
+    1px solid var(--gold-light);
+
+  color:
+    white;
 
   font-size:
-    12px;
+    7px;
 
   letter-spacing:
     2px;
 
-}
-
-.church-info span {
-
-  color:
-    var(--gold-light);
-
-}
-
-
-/* =========================================================
-   ESTRELLAS QUE CAEN
-========================================================= */
-
-.falling-stars {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  overflow:
-    hidden;
-
-  pointer-events:
+  text-decoration:
     none;
 
 }
 
-.falling-stars span {
+.ceremony-location a b {
 
-  top:
-    -30px;
+  color:
+    var(--gold-light);
 
-  animation:
-    fallingStar 7s linear infinite;
-
-}
-
-.falling-stars span:nth-child(1) {
-
-  left:
-    10%;
-
-  animation-delay:
-    0s;
-
-}
-
-.falling-stars span:nth-child(2) {
-
-  left:
-    22%;
-
-  animation-delay:
-    2s;
-
-}
-
-.falling-stars span:nth-child(3) {
-
-  left:
-    35%;
-
-  animation-delay:
-    4s;
-
-}
-
-.falling-stars span:nth-child(4) {
-
-  left:
-    47%;
-
-  animation-delay:
-    1s;
-
-}
-
-.falling-stars span:nth-child(5) {
-
-  left:
-    60%;
-
-  animation-delay:
-    3s;
-
-}
-
-.falling-stars span:nth-child(6) {
-
-  left:
-    72%;
-
-  animation-delay:
-    5s;
-
-}
-
-.falling-stars span:nth-child(7) {
-
-  left:
-    82%;
-
-  animation-delay:
-    1.5s;
-
-}
-
-.falling-stars span:nth-child(8) {
-
-  left:
-    91%;
-
-  animation-delay:
-    3.5s;
-
-}
-
-.falling-stars span:nth-child(9) {
-
-  left:
-    5%;
-
-  animation-delay:
-    5.5s;
-
-}
-
-@keyframes fallingStar {
-
-  0% {
-
-    opacity:
-      0;
-
-    transform:
-      translateY(-40px) rotate(0);
-
-  }
-
-  15% {
-
-    opacity:
-      .8;
-
-  }
-
-  100% {
-
-    opacity:
-      0;
-
-    transform:
-      translateY(110vh) rotate(180deg);
-
-  }
+  font-size:
+    16px;
 
 }
 
 
-/* =========================================================
-   04 · CELEBRACIÓN
-========================================================= */
+/* polvo */
 
-.celebration-screen {
+.gold-dust i {
+
+  position:
+    absolute;
+
+  width:
+    3px;
+
+  height:
+    3px;
+
+  border-radius:
+    50%;
 
   background:
-    var(--cream-dark);
+    var(--gold-light);
+
+  box-shadow:
+    0 0 10px var(--gold-light);
+
+  animation:
+    dust 5s ease-in-out infinite;
+
+}
+
+.gold-dust i:nth-child(1) {
+  left: 8%;
+  top: 25%;
+}
+
+.gold-dust i:nth-child(2) {
+  left: 20%;
+  top: 60%;
+  animation-delay: 1s;
+}
+
+.gold-dust i:nth-child(3) {
+  left: 35%;
+  top: 15%;
+  animation-delay: 2s;
+}
+
+.gold-dust i:nth-child(4) {
+  left: 50%;
+  top: 70%;
+  animation-delay: 3s;
+}
+
+.gold-dust i:nth-child(5) {
+  left: 65%;
+  top: 20%;
+  animation-delay: .5s;
+}
+
+.gold-dust i:nth-child(6) {
+  left: 78%;
+  top: 55%;
+  animation-delay: 1.5s;
+}
+
+.gold-dust i:nth-child(7) {
+  left: 90%;
+  top: 30%;
+  animation-delay: 2.5s;
+}
+
+.gold-dust i:nth-child(8) {
+  left: 55%;
+  top: 35%;
+  animation-delay: 4s;
+}
+
+@keyframes dust {
+
+  50% {
+
+    transform:
+      translateY(-18px) scale(1.8);
+
+    opacity:
+      .35;
+
+  }
+
+}
+
+
+/* =====================================================
+   QUINTA
+===================================================== */
+
+.celebration {
+
+  background:
+    var(--paper-2);
 
 }
 
@@ -1894,40 +2357,33 @@ img {
     absolute;
 
   left:
-    5%;
+    0;
 
   top:
-    11%;
+    8%;
 
   width:
-    43%;
+    58%;
 
   height:
-    60%;
+    65%;
 
-  overflow:
-    hidden;
+  transform:
+    translateX(-100px);
 
   opacity:
     0;
 
 }
 
-.photo-left {
-
-  transform:
-    translateX(-120px) rotate(-3deg);
-
-}
-
-.celebration-screen.active .photo-left {
+.screen.active .celebration-photo {
 
   animation:
-    photoLeft 1.1s .1s forwards var(--ease);
+    slidePhoto 1.1s .15s forwards var(--ease);
 
 }
 
-@keyframes photoLeft {
+@keyframes slidePhoto {
 
   to {
 
@@ -1935,7 +2391,7 @@ img {
       1;
 
     transform:
-      translateX(0) rotate(-2deg);
+      translateX(0);
 
   }
 
@@ -1954,6 +2410,45 @@ img {
 
 }
 
+.photo-border {
+
+  position:
+    absolute;
+
+  inset:
+    12px;
+
+  border:
+    1px solid rgba(255, 255, 255, .7);
+
+}
+
+.photo-light {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  background:
+    linear-gradient(110deg,
+      transparent 35%,
+      rgba(255, 255, 255, .4),
+      transparent 65%);
+
+  transform:
+    translateX(-120%);
+
+}
+
+.screen.active .photo-light {
+
+  animation:
+    shine 1.5s .8s forwards;
+
+}
+
 .celebration-content {
 
   position:
@@ -1962,75 +2457,87 @@ img {
   right:
     7%;
 
-  top:
-    50%;
+  bottom:
+    8%;
 
   width:
-    42%;
-
-  transform:
-    translateY(-50%);
+    44%;
 
   text-align:
     right;
 
+  opacity:
+    0;
+
+  transform:
+    translateX(60px);
+
 }
 
-.celebration-content .section-label {
+.screen.active .celebration-content {
 
-  color:
-    var(--gold-dark);
+  animation:
+    textRight 1s .45s forwards var(--ease);
+
+}
+
+@keyframes textRight {
+
+  to {
+
+    opacity:
+      1;
+
+    transform:
+      translateX(0);
+
+  }
 
 }
 
 .celebration-content h2 {
 
   margin-top:
-    18px;
+    10px;
+
+  color:
+    var(--green);
 
   font-size:
-    clamp(3.5rem,
-      7vw,
-      5.5rem);
+    clamp(4rem, 9vw, 6rem);
 
   line-height:
-    .7;
+    .65;
 
 }
 
 .celebration-content p {
 
   margin-top:
-    25px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
+    18px;
 
   font-size:
-    clamp(1.25rem,
-      2.6vw,
-      1.7rem);
+    20px;
 
   line-height:
-    1.25;
+    1.08;
 
 }
 
 .venue {
 
   margin-top:
-    22px;
+    20px;
 
 }
 
-.venue small {
+.venue span {
 
   display:
     block;
 
   font-size:
-    8px;
+    7px;
 
   letter-spacing:
     3px;
@@ -2043,718 +2550,47 @@ img {
     block;
 
   margin-top:
-    5px;
+    4px;
 
   color:
-    var(--gold-dark);
-
-  font-size:
-    clamp(1.2rem,
-      2.6vw,
-      1.7rem);
-
-}
-
-.party-time {
-
-  display:
-    block;
-
-  margin-top:
-    12px;
-
-  font-size:
-    10px;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    3px;
-
-}
-
-.celebration-decoration span:nth-child(1) {
-
-  top:
-    12%;
-
-  right:
-    12%;
-
-}
-
-.celebration-decoration span:nth-child(2) {
-
-  bottom:
-    18%;
-
-  right:
-    8%;
-
-}
-
-.celebration-decoration span:nth-child(3) {
-
-  top:
-    20%;
-
-  left:
-    55%;
-
-}
-
-.celebration-decoration span {
-
-  animation:
-    floatingStar 4s infinite;
-
-}
-
-
-/* =========================================================
-   05 · GALERÍA
-========================================================= */
-
-.gallery-screen {
-
-  background:
-    radial-gradient(circle at 50% 40%,
-      #fffaf5,
-      #e7d9cb);
-
-}
-
-.gallery-header {
-
-  position:
-    absolute;
-
-  z-index:
-    5;
-
-  top:
-    7%;
-
-  left:
-    50%;
-
-  width:
-    100%;
-
-  transform:
-    translateX(-50%);
-
-  text-align:
-    center;
-
-}
-
-.gallery-header h2 {
-
-  margin-top:
-    10px;
-
-  font-size:
-    clamp(3.5rem,
-      8vw,
-      5.5rem);
-
-  line-height:
-    .7;
-
-}
-
-.gallery-item {
-
-  position:
-    absolute;
-
-  z-index:
-    4;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    20px;
-
-  opacity:
-    0;
-
-}
-
-.gallery-image {
-
-  position:
-    relative;
-
-  width:
-    155px;
-
-  height:
-    205px;
-
-  overflow:
-    hidden;
-
-  box-shadow:
-    0 20px 45px rgba(60, 45, 35, .2);
-
-}
-
-.gallery-image::after {
-
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    10px;
-
-  border:
-    1px solid rgba(255, 255, 255, .75);
-
-}
-
-.gallery-image img {
-
-  width:
-    100%;
-
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-  transition:
-    transform 1.2s var(--ease);
-
-}
-
-.gallery-item:hover img {
-
-  transform:
-    scale(1.08);
-
-}
-
-.gallery-shine {
-
-  position:
-    absolute;
-
-  top:
-    0;
-
-  left:
-    -100%;
-
-  width:
-    35%;
-
-  height:
-    100%;
-
-  background:
-    linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, .65),
-      transparent);
-
-  transform:
-    skewX(-20deg);
-
-}
-
-.gallery-screen.active .gallery-shine {
-
-  animation:
-    galleryShine 1.6s .8s forwards;
-
-}
-
-@keyframes galleryShine {
-
-  to {
-
-    left:
-      150%;
-
-  }
-
-}
-
-.gallery-caption {
-
-  width:
-    180px;
-
-}
-
-.gallery-caption span {
-
-  display:
-    block;
-
-  margin-bottom:
-    8px;
-
-  color:
-    var(--gold-dark);
-
-  font-size:
-    8px;
-
-  letter-spacing:
-    3px;
-
-}
-
-.gallery-caption p {
+    var(--green);
 
   font-family:
-    "Cormorant Garamond",
-    serif;
+    "Cormorant Garamond";
 
   font-size:
-    1.45rem;
+    24px;
 
   line-height:
-    1;
+    .9;
 
 }
 
-.gallery-item-one {
-
-  top:
-    22%;
-
-  left:
-    7%;
-
-  transform:
-    translateX(-100px) rotate(-3deg);
-
-}
-
-.gallery-item-two {
-
-  top:
-    45%;
-
-  right:
-    7%;
-
-  transform:
-    translateX(100px) rotate(3deg);
-
-}
-
-.gallery-item-three {
-
-  bottom:
-    5%;
-
-  left:
-    12%;
-
-  transform:
-    translateY(100px) rotate(-2deg);
-
-}
-
-.gallery-screen.active .gallery-item-one {
-
-  animation:
-    galleryOne 1s .2s forwards var(--ease);
-
-}
-
-.gallery-screen.active .gallery-item-two {
-
-  animation:
-    galleryTwo 1s .5s forwards var(--ease);
-
-}
-
-.gallery-screen.active .gallery-item-three {
-
-  animation:
-    galleryThree 1s .8s forwards var(--ease);
-
-}
-
-@keyframes galleryOne {
-
-  to {
-
-    opacity:
-      1;
-
-    transform:
-      translateX(0) rotate(-3deg);
-
-  }
-
-}
-
-@keyframes galleryTwo {
-
-  to {
-
-    opacity:
-      1;
-
-    transform:
-      translateX(0) rotate(3deg);
-
-  }
-
-}
-
-@keyframes galleryThree {
-
-  to {
-
-    opacity:
-      1;
-
-    transform:
-      translateY(0) rotate(-2deg);
-
-  }
-
-}
-
-.gallery-stars span:nth-child(1) {
-
-  left:
-    5%;
-
-  top:
-    20%;
-
-}
-
-.gallery-stars span:nth-child(2) {
-
-  right:
-    10%;
-
-  top:
-    17%;
-
-}
-
-.gallery-stars span:nth-child(3) {
-
-  left:
-    48%;
-
-  top:
-    14%;
-
-}
-
-.gallery-stars span:nth-child(4) {
-
-  left:
-    30%;
-
-  bottom:
-    12%;
-
-}
-
-.gallery-stars span:nth-child(5) {
-
-  right:
-    25%;
-
-  bottom:
-    20%;
-
-}
-
-.gallery-stars span:nth-child(6) {
-
-  right:
-    5%;
-
-  bottom:
-    38%;
-
-}
-
-.gallery-stars span:nth-child(7) {
-
-  left:
-    8%;
-
-  bottom:
-    38%;
-
-}
-
-.gallery-stars span {
-
-  animation:
-    floatingStar 4s infinite;
-
-}
-
-.gallery-hint {
-
-  color:
-    var(--gold-dark);
-
-}
-
-
-/* =========================================================
-   06 · FINAL
-========================================================= */
-
-.final-screen {
-
-  color:
-    white;
+.venue small {
 
   display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  text-align:
-    center;
-
-}
-
-.final-bg {
-
-  position:
-    absolute;
-
-  inset:
-    -5%;
-
-  background:
-    url("../img/portada.jpeg") center / cover no-repeat;
-
-}
-
-.final-overlay {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    rgba(24, 19, 16, .7);
-
-}
-
-.final-light {
-
-  position:
-    absolute;
-
-  width:
-    600px;
-
-  height:
-    600px;
-
-  border-radius:
-    50%;
-
-  background:
-    radial-gradient(circle,
-      rgba(200, 165, 116, .17),
-      transparent 68%);
-
-}
-
-.final-content {
-
-  position:
-    relative;
-
-  z-index:
-    5;
-
-  width:
-    min(90%, 700px);
-
-}
-
-.final-content .section-label {
-
-  color:
-    var(--gold-light);
-
-}
-
-.final-content h2 {
+    block;
 
   margin-top:
-    30px;
-
-  font-size:
-    clamp(4rem,
-      12vw,
-      8rem);
-
-  line-height:
-    .62;
-
-}
-
-.final-content h2 span {
-
-  display:
-    block;
-
-}
-
-.final-content h2 strong {
-
-  display:
-    block;
-
-  margin:
-    15px 0;
+    7px;
 
   color:
-    var(--gold-light);
-
-  font-size:
-    2.5rem;
-
-  font-weight:
-    400;
-
-  font-style:
-    italic;
-
-}
-
-.final-line {
-
-  width:
-    0;
-
-  height:
-    1px;
-
-  margin:
-    35px auto 0;
-
-  background:
     var(--gold);
 
-}
-
-.final-screen.active .final-line {
-
-  animation:
-    lineGrow .8s .8s forwards;
-
-}
-
-@keyframes lineGrow {
-
-  to {
-
-    width:
-      100px;
-
-  }
-
-}
-
-.final-content>p {
-
-  margin-top:
-    25px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
   font-size:
-    2rem;
+    8px;
 
-}
-
-.final-message {
-
-  max-width:
-    550px;
-
-  margin-left:
-    auto;
-
-  margin-right:
-    auto;
-
-  font-size:
-    1.25rem !important;
-
-  line-height:
-    1.4;
-
-}
-
-.heart {
-
-  display:
-    block;
-
-  margin-top:
-    25px;
-
-  color:
-    var(--gold-light);
-
-  font-size:
-    35px;
-
-  animation:
-    heartBeat 2s infinite;
-
-}
-
-@keyframes heartBeat {
-
-  50% {
-
-    transform:
-      scale(1.25);
-
-  }
+  letter-spacing:
+    3px;
 
 }
 
 
-/* =========================================================
-   07 · DETAILS
-========================================================= */
+/* =====================================================
+   SEXTA
+===================================================== */
 
-.details-screen {
+.details {
 
   display:
     flex;
@@ -2766,14 +2602,20 @@ img {
     center;
 
   background:
-    var(--cream);
+    var(--paper);
 
 }
 
 .details-content {
 
+  position:
+    relative;
+
+  z-index:
+    5;
+
   width:
-    min(88%, 700px);
+    min(88%, 650px);
 
   text-align:
     center;
@@ -2783,35 +2625,32 @@ img {
 .details-content h2 {
 
   margin-top:
-    10px;
+    5px;
+
+  color:
+    var(--green);
 
   font-size:
-    clamp(3.8rem,
-      9vw,
-      6rem);
+    clamp(4rem, 11vw, 6rem);
 
   line-height:
-    .7;
+    .65;
 
 }
 
 .details-intro {
 
-  max-width:
-    550px;
+  width:
+    90%;
 
   margin:
-    22px auto 0;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
+    17px auto;
 
   font-size:
-    1.25rem;
+    18px;
 
   line-height:
-    1.25;
+    1.1;
 
 }
 
@@ -2820,98 +2659,134 @@ img {
   display:
     flex;
 
-  align-items:
-    flex-start;
-
   gap:
-    18px;
-
-  margin-top:
-    22px;
+    14px;
 
   padding:
-    20px;
+    14px;
 
-  border:
-    1px solid rgba(169, 133, 87, .35);
-
-  background:
-    rgba(255, 255, 255, .35);
+  margin-top:
+    12px;
 
   text-align:
     left;
+
+  border:
+    1px solid rgba(185, 151, 91, .3);
+
+  background:
+    rgba(255, 255, 255, .45);
+
+  box-shadow:
+    0 10px 30px rgba(70, 60, 50, .04);
+
+  opacity:
+    0;
+
+  transform:
+    translateY(25px);
+
+}
+
+.screen.active .detail-card {
+
+  animation:
+    cardIn .8s .3s forwards var(--ease);
+
+}
+
+.screen.active .detail-card:nth-of-type(2) {
+
+  animation-delay:
+    .55s;
+
+}
+
+@keyframes cardIn {
+
+  to {
+
+    opacity:
+      1;
+
+    transform:
+      translateY(0);
+
+  }
 
 }
 
 .detail-icon {
 
   flex:
-    0 0 auto;
+    0 0 34px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
 
   color:
-    var(--gold-dark);
+    var(--gold);
 
   font-size:
-    27px;
+    25px;
 
 }
 
-.detail-information {
-
-  flex:
-    1;
-
-}
-
-.detail-information small {
+.detail-info>span {
 
   display:
     block;
 
   color:
-    var(--gold-dark);
+    var(--gold);
 
   font-size:
-    8px;
+    7px;
 
   font-weight:
     600;
 
   letter-spacing:
-    3px;
+    2px;
 
 }
 
-.detail-information strong {
+.detail-info strong {
 
   display:
     block;
 
   margin-top:
-    5px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    clamp(1.35rem,
-      3vw,
-      1.8rem);
-
-}
-
-.detail-information p {
-
-  margin-top:
     4px;
 
+  color:
+    var(--green);
+
+  font-family:
+    "Cormorant Garamond";
+
   font-size:
-    10px;
+    19px;
 
 }
 
-.detail-information a {
+.detail-info p {
+
+  margin-top:
+    2px;
+
+  font-family:
+    "Montserrat";
+
+  font-size:
+    9px;
+
+}
+
+.detail-info a {
 
   display:
     inline-flex;
@@ -2923,107 +2798,106 @@ img {
     8px;
 
   margin-top:
-    13px;
+    8px;
 
   padding:
-    10px 14px;
+    8px 10px;
 
   border:
-    1px solid var(--gold-dark);
+    1px solid var(--green);
 
   color:
-    var(--brown);
-
-  background:
-    transparent;
+    var(--green);
 
   font-size:
-    8px;
+    6px;
 
   font-weight:
     600;
 
   letter-spacing:
-    1.5px;
+    1px;
 
   text-decoration:
     none;
 
-  transition:
-    .3s ease;
-
 }
 
-.detail-information a:hover {
-
-  color:
-    white;
-
-  background:
-    var(--brown);
-
-}
-
-.detail-information a span {
-
-  color:
-    var(--gold-dark);
-
-}
-
-.details-footer {
-
-  margin-top:
-    22px;
-
-}
-
-.details-footer span {
-
-  display:
-    block;
-
-  color:
-    var(--gold-dark);
+.detail-info a b {
 
   font-size:
-    8px;
+    14px;
+
+  color:
+    var(--gold);
+
+}
+
+.final-message {
+
+  margin-top:
+    15px;
+
+}
+
+.final-message>span {
+
+  color:
+    var(--gold);
+
+  font-size:
+    7px;
 
   letter-spacing:
-    4px;
+    3px;
 
 }
 
-.details-footer strong {
+.final-message strong {
 
   display:
     block;
 
   margin-top:
-    8px;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    1.8rem;
-
-}
-
-.details-footer i {
-
-  display:
-    block;
-
-  margin-top:
-    8px;
+    3px;
 
   color:
-    var(--gold-dark);
+    var(--green);
+
+  font-family:
+    "Parisienne";
 
   font-size:
-    24px;
+    31px;
+
+  font-weight:
+    400;
+
+}
+
+.final-message p {
+
+  margin-top:
+    3px;
+
+  font-size:
+    14px;
+
+}
+
+.final-message i {
+
+  display:
+    block;
+
+  margin-top:
+    2px;
+
+  color:
+    var(--gold);
+
+  font-size:
+    20px;
 
   font-style:
     normal;
@@ -3031,471 +2905,333 @@ img {
 }
 
 
-/* =========================================================
+/* =====================================================
+   INDICADOR DE SCROLL
+===================================================== */
+
+.scroll-cue {
+
+  position:
+    absolute;
+
+  z-index:
+    20;
+
+  bottom:
+    17px;
+
+  left:
+    50%;
+
+  transform:
+    translateX(-50%);
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  color:
+    var(--green);
+
+  font-size:
+    6px;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    3px;
+
+}
+
+.scroll-cue i {
+
+  margin-top:
+    4px;
+
+  color:
+    var(--gold);
+
+  font-size:
+    19px;
+
+  font-style:
+    normal;
+
+  animation:
+    scrollArrow 1.3s infinite;
+
+}
+
+.scroll-cue.light {
+
+  color:
+    white;
+
+}
+
+@keyframes scrollArrow {
+
+  50% {
+
+    transform:
+      translateY(7px);
+
+  }
+
+}
+
+
+/* =====================================================
    MOBILE
-========================================================= */
+===================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
 
-
-  .progress {
+  .screen-progress {
 
     right:
       5px;
 
   }
 
-
-  /* HERO */
-
-  .hero-top span {
+  .names span {
 
     font-size:
-      9px;
-
-    letter-spacing:
-      2px;
+      clamp(4rem, 18vw, 5.7rem);
 
   }
 
-  .names {
+  .cover-date {
 
-    font-size:
-      clamp(4rem,
-        18vw,
-        6rem);
+    margin:
+      18px auto;
 
   }
 
-  .date-info {
-
-    margin-top:
-      46px;
-
-  }
-
-  .date-info strong {
-
-    font-size:
-      12px;
-
-  }
-
-  .ceremony-label {
-
-    font-size:
-      8px;
-
-  }
-
-
-  /* STORY */
-
-  .story-photo {
-
-    top:
-      7%;
-
-    right:
-      5%;
+  .invitation-card {
 
     width:
-      72%;
+      70vw;
+
+    height:
+      42vw;
+
+    max-width:
+      260px;
+
+    max-height:
+      175px;
+
+  }
+
+  .wedding-title {
+
+    top:
+      10%;
+
+  }
+
+  .wedding-title h2 {
+
+    font-size:
+      4.5rem;
+
+  }
+
+  .hero-photo {
+
+    top:
+      27%;
 
     height:
       42%;
 
   }
 
-  .story-content {
-
-    left:
-      8%;
-
-    top:
-      auto;
+  .verse {
 
     bottom:
-      9%;
-
-    width:
-      83%;
-
-    transform:
-      none;
-
-  }
-
-  .story-content h2 {
-
-    margin-top:
-      17px;
-
-    font-size:
-      clamp(3.45rem,
-        14vw,
-        5rem);
-
-  }
-
-  .story-content p {
-
-    margin-top:
-      17px;
-
-    font-size:
-      1.2rem;
-
-  }
-
-  .continue-hint {
-
-    right:
-      6px;
-
-    bottom:
-      22px;
-
-  }
-
-  .continue-hint span {
-
-    font-size:
-      7px;
-
-  }
-
-  .continue-hint strong {
-
-    font-size:
-      30px;
-
-  }
-
-
-  /* CHURCH */
-
-  .church-content h2 {
-
-    font-size:
-      clamp(4.5rem,
-        20vw,
-        7rem);
-
-  }
-
-  .church-name {
-
-    font-size:
-      1.4rem;
-
-  }
-
-  .church-info strong {
-
-    font-size:
-      10px;
-
-  }
-
-
-  /* CELEBRATION */
-
-  .celebration-photo {
-
-    left:
-      5%;
-
-    top:
       7%;
 
-    width:
-      72%;
-
-    height:
-      40%;
-
   }
 
-  .celebration-content {
-
-    right:
-      7%;
-
-    top:
-      auto;
-
-    bottom:
-      8%;
-
-    width:
-      86%;
-
-    transform:
-      none;
-
-  }
-
-  .celebration-content h2 {
-
-    font-size:
-      3.8rem;
-
-  }
-
-  .celebration-content p {
-
-    margin-top:
-      13px;
-
-    font-size:
-      1.15rem;
-
-  }
-
-  .venue {
-
-    margin-top:
-      13px;
-
-  }
-
-  .venue strong {
-
-    font-size:
-      1.3rem;
-
-  }
-
-
-  /* GALLERY */
-
-  .gallery-header {
-
-    top:
-      5%;
-
-  }
-
-  .gallery-header h2 {
-
-    font-size:
-      3.6rem;
-
-  }
-
-  .gallery-item {
-
-    gap:
-      10px;
-
-  }
-
-  .gallery-image {
-
-    width:
-      115px;
-
-    height:
-      155px;
-
-  }
-
-  .gallery-caption {
-
-    width:
-      120px;
-
-  }
-
-  .gallery-caption p {
+  .verse p {
 
     font-size:
       1.1rem;
 
   }
 
-  .gallery-item-one {
-
-    top:
-      21%;
-
-    left:
-      5%;
-
-  }
-
-  .gallery-item-two {
-
-    top:
-      45%;
-
-    right:
-      5%;
-
-  }
-
-  .gallery-item-three {
-
-    bottom:
-      7%;
-
-    left:
-      8%;
-
-  }
-
-
-  /* FINAL */
-
-  .final-content h2 {
-
-    font-size:
-      clamp(3.9rem,
-        18vw,
-        6rem);
-
-  }
-
-  .final-message {
-
-    font-size:
-      1.12rem !important;
-
-  }
-
-
-  /* DETAILS */
-
-  .details-content {
-
-    width:
-      88%;
-
-  }
-
-  .details-content h2 {
-
-    font-size:
-      3.8rem;
-
-  }
-
-  .details-intro {
-
-    margin-top:
-      15px;
-
-    font-size:
-      1.1rem;
-
-  }
-
-  .detail-card {
-
-    gap:
-      12px;
-
-    padding:
-      15px;
-
-  }
-
-  .detail-information strong {
-
-    font-size:
-      1.3rem;
-
-  }
-
-  .detail-information p {
-
-    font-size:
-      9px;
-
-  }
-
-  .detail-information a {
-
-    font-size:
-      7px;
-
-  }
-
-}
-
-
-/* =========================================================
-   PANTALLAS MUY PEQUEÑAS
-========================================================= */
-
-@media (max-width: 390px) {
-
-  .names {
+  .blessing-content h2 {
 
     font-size:
       3.7rem;
 
   }
 
-  .date-info {
+  .parents-side strong {
 
-    margin-top:
-      38px;
+    font-size:
+      17px;
 
   }
 
-  .story-content h2 {
+  .ceremony-content h2 {
 
     font-size:
-      3.2rem;
+      4.2rem;
 
   }
 
-  .story-content p {
+  .countdown div {
 
-    font-size:
-      1.05rem;
+    min-width:
+      55px;
 
   }
 
-  .church-content h2 {
+  .countdown strong {
 
     font-size:
-      4.1rem;
+      25px;
+
+  }
+
+  .celebration-photo {
+
+    width:
+      76%;
+
+    height:
+      45%;
+
+  }
+
+  .celebration-content {
+
+    right:
+      5%;
+
+    bottom:
+      7%;
+
+    width:
+      88%;
 
   }
 
   .celebration-content h2 {
 
     font-size:
-      3.35rem;
+      4rem;
 
   }
 
-  .gallery-image {
+  .celebration-content p {
+
+    font-size:
+      17px;
+
+  }
+
+  .details-content {
 
     width:
-      105px;
-
-    height:
-      140px;
+      86%;
 
   }
 
-  .gallery-caption p {
+}
+
+@media (max-height: 700px) {
+
+  .names span {
+
+    font-size:
+      4rem;
+
+  }
+
+  .cover-date {
+
+    margin:
+      12px auto;
+
+  }
+
+  .invitation-card {
+
+    margin-top:
+      12px;
+
+  }
+
+  .reserved {
+
+    margin-top:
+      15px;
+
+  }
+
+  .wedding-title h2 {
+
+    font-size:
+      4rem;
+
+  }
+
+  .hero-photo {
+
+    top:
+      25%;
+
+    height:
+      40%;
+
+  }
+
+  .verse p {
 
     font-size:
       1rem;
 
   }
 
+  .parents {
+
+    margin-top:
+      20px;
+
+  }
+
+  .ceremony-date {
+
+    margin-top:
+      20px;
+
+  }
+
+  .countdown-title {
+
+    margin-top:
+      15px;
+
+  }
+
+  .ceremony-location {
+
+    margin-top:
+      15px;
+
+  }
+
 }
-
-
-/* =========================================================
-   REDUCIR ANIMACIONES
-========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -3508,9 +3244,6 @@ img {
 
     animation-iteration-count:
       1 !important;
-
-    scroll-behavior:
-      auto !important;
 
     transition-duration:
       .01ms !important;

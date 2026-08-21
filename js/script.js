@@ -1,343 +1,403 @@
-/* =========================================================
-   ELEMENTOS
-========================================================= */
+const loader =
+    document.getElementById("loader");
 
-const loader = document.getElementById("loader");
+const music =
+    document.getElementById("music");
 
-const loaderText = document.getElementById("loaderText");
+const invitationCard =
+    document.getElementById("invitationCard");
 
-const music = document.getElementById("music");
+const screens =
+    [...document.querySelectorAll(".screen")];
 
-const audioZone = document.getElementById("audioZone");
+const currentScreen =
+    document.getElementById("currentScreen");
 
-const screens = [...document.querySelectorAll(".screen")];
+const progressFill =
+    document.getElementById("progressFill");
 
-const progressDots = [...document.querySelectorAll(".progress-dots button")];
 
-const currentNumber = document.getElementById("currentNumber");
+let musicStarted =
+    false;
 
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
+let activeScreen =
+    0;
 
-const MUSIC_START_TIME = 17;
 
-const MUSIC_VOLUME = 0.35;
+/* =====================================================
+   LOADER
+===================================================== */
 
-/* =========================================================
-   ESTADO
-========================================================= */
-
-let currentScreen = 0;
-
-let musicStarted = false;
-
-/* =========================================================
-   IMÁGENES
-========================================================= */
-
-const images = [
-  "img/portada.jpeg",
-  "img/foto1.jpeg",
-  "img/foto2.jpeg",
-  "img/foto3.jpeg",
-];
-
-/* =========================================================
-   PRELOAD
-========================================================= */
-
-function preloadImage(src) {
-  return new Promise((resolve) => {
-    const image = new Image();
-
-    image.onload = resolve;
-
-    image.onerror = resolve;
-
-    image.src = src;
-  });
-}
-
-async function prepareInvitation() {
-  try {
-    loaderText.textContent = "Preparando nuestra historia...";
-
-    await preloadImage(images[0]);
-
-    loaderText.textContent = "Preparando nuestros recuerdos...";
-
-    await Promise.all(images.slice(1).map(preloadImage));
-
-    loaderText.textContent = "Todo listo ✦";
+window.addEventListener("load", () => {
 
     setTimeout(() => {
-      loader.classList.add("hidden");
-    }, 500);
-  } catch (error) {
-    loader.classList.add("hidden");
-  }
-}
 
-prepareInvitation();
+        loader.classList.add("hidden");
 
-/* =========================================================
-   MÚSICA
-========================================================= */
+    }, 700);
+
+});
+
+
+/* =====================================================
+   AUDIO
+===================================================== */
 
 async function startMusic() {
-  if (musicStarted) {
-    return;
-  }
 
-  try {
-    /*
-     * El audio empieza exactamente
-     * desde el segundo 17.
-     */
+    if (musicStarted) {
+        return;
+    }
 
-    music.currentTime = MUSIC_START_TIME;
+    try {
 
-    music.volume = 0;
+        music.currentTime = 0;
 
-    /*
-     * Como esta función se ejecuta
-     * después de una interacción
-     * del usuario, el navegador
-     * permite reproducir el audio.
-     */
+        music.volume = 0;
 
-    await music.play();
+        await music.play();
 
-    musicStarted = true;
+        musicStarted = true;
 
-    /*
-     * Fade in
-     */
 
-    let volume = 0;
+        const fade =
+            setInterval(() => {
 
-    const fade = setInterval(() => {
-      volume += 0.025;
+                music.volume =
+                    Math.min(
+                        music.volume + 0.025,
+                        0.35
+                    );
 
-      music.volume = Math.min(volume, MUSIC_VOLUME);
+                if (
+                    music.volume >= 0.35
+                ) {
 
-      if (volume >= MUSIC_VOLUME) {
-        clearInterval(fade);
-      }
-    }, 60);
-  } catch (error) {
-    console.warn("El navegador bloqueó el audio.");
-  }
+                    clearInterval(fade);
+
+                }
+
+            }, 60);
+
+    } catch (error) {
+
+        console.log(
+            "El navegador bloqueó el audio."
+        );
+
+    }
+
 }
 
-/* =========================================================
-   PRIMER GESTO
-========================================================= */
 
-/*
- * La zona ocupa:
- *
- * 100% WIDTH
- * 50% HEIGHT
- *
- * Es invisible.
- */
+/* =====================================================
+   ABRIR INVITACIÓN
+===================================================== */
 
-audioZone.addEventListener(
-  "pointerdown",
-  () => {
-    startMusic();
-  },
-  {
-    passive: true,
-  },
+invitationCard.addEventListener(
+    "click",
+    async () => {
+
+        await startMusic();
+
+
+        const cover =
+            document.querySelector(".cover");
+
+
+        cover.classList.add(
+            "opening"
+        );
+
+
+        setTimeout(() => {
+
+            screens[1].scrollIntoView({
+                behavior:
+                    "smooth"
+            });
+
+        }, 900);
+
+    }
 );
 
-/*
- * Especialmente útil
- * en dispositivos táctiles.
- */
 
-audioZone.addEventListener(
-  "touchstart",
-  () => {
-    startMusic();
-  },
-  {
-    passive: true,
-  },
+/* =====================================================
+   OBSERVER
+===================================================== */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (
+                    !entry.isIntersecting
+                ) {
+                    return;
+                }
+
+
+                const index =
+                    screens.indexOf(
+                        entry.target
+                    );
+
+
+                if (index === -1) {
+                    return;
+                }
+
+
+                activeScreen =
+                    index;
+
+
+                entry.target.classList.add(
+                    "active"
+                );
+
+
+                updateProgress(
+                    index
+                );
+
+            });
+
+        },
+        {
+            threshold:
+                0.65
+        }
+    );
+
+
+screens.forEach(screen => {
+
+    observer.observe(screen);
+
+});
+
+
+/* =====================================================
+   PROGRESO
+===================================================== */
+
+function updateProgress(index) {
+
+    currentScreen.textContent =
+        String(index + 1)
+            .padStart(2, "0");
+
+
+    const percentage =
+        ((index + 1) / screens.length) *
+        100;
+
+
+    progressFill.style.height =
+        `${percentage}%`;
+
+}
+
+
+/* =====================================================
+   CONTADOR
+===================================================== */
+
+const weddingDate =
+    new Date(
+        "2026-09-05T13:30:00"
+    );
+
+
+function updateCountdown() {
+
+    const now =
+        new Date();
+
+    const difference =
+        weddingDate - now;
+
+
+    if (
+        difference <= 0
+    ) {
+
+        setCountdown(
+            0,
+            0,
+            0,
+            0
+        );
+
+        return;
+
+    }
+
+
+    const days =
+        Math.floor(
+            difference /
+            86400000
+        );
+
+
+    const hours =
+        Math.floor(
+            (difference % 86400000) /
+            3600000
+        );
+
+
+    const minutes =
+        Math.floor(
+            (difference % 3600000) /
+            60000
+        );
+
+
+    const seconds =
+        Math.floor(
+            (difference % 60000) /
+            1000
+        );
+
+
+    setCountdown(
+        days,
+        hours,
+        minutes,
+        seconds
+    );
+
+}
+
+
+function setCountdown(
+    days,
+    hours,
+    minutes,
+    seconds
+) {
+
+    document.getElementById(
+        "days"
+    ).textContent =
+        String(days).padStart(2, "0");
+
+
+    document.getElementById(
+        "hours"
+    ).textContent =
+        String(hours).padStart(2, "0");
+
+
+    document.getElementById(
+        "minutes"
+    ).textContent =
+        String(minutes).padStart(2, "0");
+
+
+    document.getElementById(
+        "seconds"
+    ).textContent =
+        String(seconds).padStart(2, "0");
+
+}
+
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
 );
 
-/*
- * Si el usuario comienza
- * directamente deslizando.
- */
 
-audioZone.addEventListener(
-  "touchmove",
-  () => {
-    startMusic();
-  },
-  {
-    passive: true,
-  },
-);
-
-/* =========================================================
-   RESPALDO PARA PRIMERA INTERACCIÓN
-========================================================= */
+/* =====================================================
+   TECLADO
+===================================================== */
 
 document.addEventListener(
-  "pointerdown",
-  () => {
-    startMusic();
-  },
-  {
-    once: true,
-    passive: true,
-  },
+    "keydown",
+    event => {
+
+        if (
+            event.key !== "ArrowDown" &&
+            event.key !== "ArrowUp"
+        ) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        let next =
+            activeScreen;
+
+
+        if (
+            event.key === "ArrowDown"
+        ) {
+
+            next++;
+
+        } else {
+
+            next--;
+
+        }
+
+
+        next =
+            Math.max(
+                0,
+                Math.min(
+                    screens.length - 1,
+                    next
+                )
+            );
+
+
+        screens[next].scrollIntoView({
+            behavior:
+                "smooth"
+        });
+
+    }
 );
 
-/* =========================================================
-   OBSERVER
-========================================================= */
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        return;
-      }
+/* =====================================================
+   PRELOAD
+===================================================== */
 
-      const index = screens.indexOf(entry.target);
+[
+    "img/portada.jpeg",
+    "img/foto1.jpeg",
+    "img/foto2.jpeg",
+    "img/foto3.jpeg"
+].forEach(src => {
 
-      if (index === -1) {
-        return;
-      }
+    const image =
+        new Image();
 
-      activateScreen(index);
-    });
-  },
-  {
-    threshold: 0.65,
-  },
-);
+    image.src =
+        src;
 
-screens.forEach((screen) => {
-  observer.observe(screen);
 });
 
-/* =========================================================
-   ACTIVAR PANTALLA
-========================================================= */
 
-function activateScreen(index) {
-  currentScreen = index;
-
-  currentNumber.textContent = String(index + 1).padStart(2, "0");
-
-  progressDots.forEach((dot, dotIndex) => {
-    dot.classList.toggle("active", dotIndex === index);
-  });
-
-  screens.forEach((screen, screenIndex) => {
-    screen.classList.toggle("active", screenIndex === index);
-  });
-}
-
-/* =========================================================
-   NAVEGACIÓN POR PUNTOS
-========================================================= */
-
-progressDots.forEach((dot, index) => {
-  dot.addEventListener("click", (event) => {
-    event.stopPropagation();
-
-    screens[index].scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  });
-});
-
-/* =========================================================
-   PRECARGA DE SIGUIENTES IMÁGENES
-========================================================= */
-
-const nextImages = {
-  0: ["img/foto1.jpeg"],
-
-  1: ["img/foto3.jpeg"],
-
-  2: ["img/foto2.jpeg"],
-
-  3: ["img/foto4.jpeg"],
-};
-
-function preloadNext(index) {
-  if (!nextImages[index]) {
-    return;
-  }
-
-  nextImages[index].forEach((src) => {
-    const image = new Image();
-
-    image.src = src;
-  });
-}
-
-const preloadObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        return;
-      }
-
-      const index = screens.indexOf(entry.target);
-
-      preloadNext(index);
-    });
-  },
-  {
-    threshold: 0.2,
-  },
-);
-
-screens.forEach((screen) => {
-  preloadObserver.observe(screen);
-});
-
-/* =========================================================
-   TECLADO
-========================================================= */
-
-document.addEventListener("keydown", (event) => {
-  if (event.key !== "ArrowDown" && event.key !== "ArrowUp") {
-    return;
-  }
-
-  event.preventDefault();
-
-  let next = currentScreen;
-
-  if (event.key === "ArrowDown") {
-    next++;
-  } else {
-    next--;
-  }
-
-  next = Math.max(0, Math.min(screens.length - 1, next));
-
-  screens[next].scrollIntoView({
-    behavior: "smooth",
-  });
-
-  startMusic();
-});
-
-/* =========================================================
+/* =====================================================
    INICIO
-========================================================= */
+===================================================== */
 
-activateScreen(0);
+screens[0].classList.add(
+    "active"
+);
+
+updateProgress(0);

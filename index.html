@@ -7,27 +7,17 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-  <meta name="theme-color" content="#403832">
-
-
-  <!-- =========================================
-         INFORMACIÓN DE LA PÁGINA
-    ========================================== -->
+  <meta name="theme-color" content="#355b59">
 
   <title>
     Invitación a nuestro matrimonio | Alexander & Luz Clara
   </title>
 
-  <meta name="description"
-    content="Alexander & Luz Clara · 5 de septiembre · 17:00 HRS. Una fecha especial que queremos compartir contigo.">
+  <meta name="description" content="Alexander & Luz Clara · 5 de septiembre · 17:00 HRS.">
 
   <meta name="author" content="Alexander & Luz Clara">
 
-
-  <!-- =========================================
-         OPEN GRAPH
-         WhatsApp / Facebook / Messenger
-    ========================================== -->
+  <!-- OPEN GRAPH -->
 
   <meta property="og:type" content="website">
 
@@ -41,20 +31,15 @@
 
   <meta property="og:image" content="https://alexyluzclara.netlify.app/img/portada.jpeg">
 
-  <meta property="og:image:secure_url" content="https://alexyluzclara.netlify.app/img/portada.jpeg">
-
   <meta property="og:image:type" content="image/jpeg">
 
   <meta property="og:image:width" content="1200">
 
   <meta property="og:image:height" content="630">
 
-  <meta property="og:image:alt" content="Alexander & Luz Clara — Invitación a nuestro matrimonio">
+  <meta property="og:image:alt" content="Alexander & Luz Clara">
 
-
-  <!-- =========================================
-         TWITTER / X
-    ========================================== -->
+  <!-- TWITTER -->
 
   <meta name="twitter:card" content="summary_large_image">
 
@@ -64,415 +49,647 @@
 
   <meta name="twitter:image" content="https://alexyluzclara.netlify.app/img/portada.jpeg">
 
-  <meta name="twitter:image:alt" content="Alexander & Luz Clara">
-
-
-  <!-- =========================================
-         FUENTES
-    ========================================== -->
+  <!-- FUENTES -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600&family=Parisienne&display=swap"
     rel="stylesheet">
-
-
-  <!-- =========================================
-         CSS
-    ========================================== -->
 
   <link rel="stylesheet" href="css/styles.css">
 
 </head>
 
+
 <body>
 
+
   <!-- =====================================================
-         LOADER
-    ====================================================== -->
+     LOADER
+===================================================== -->
 
   <div class="loader" id="loader">
 
-    <div class="loader-inner">
+    <div class="loader-ring"></div>
 
-      <span class="loader-symbol">✦</span>
-
-      <small>
-        INVITACIÓN A NUESTRO MATRIMONIO
-      </small>
-
-      <h2>
-        Alexander
-        <span>&</span>
-        Luz Clara
-      </h2>
-
-      <div class="loader-line">
-        <span></span>
-      </div>
-
-      <p id="loaderText">
-        Preparando nuestra historia...
-      </p>
-
-    </div>
+    <span>
+      Alexander & Luz Clara
+    </span>
 
   </div>
 
 
   <!-- =====================================================
-         AUDIO
-    ====================================================== -->
+     AUDIO
+===================================================== -->
 
   <audio id="music" preload="auto" loop>
-    <source src="audio/boda.mp3" type="audio/mpeg">
+
+    <source src="audio/boda.mpeg" type="audio/mpeg">
+
   </audio>
 
 
   <!-- =====================================================
-         PROGRESO
-    ====================================================== -->
+     INDICADOR
+===================================================== -->
 
-  <div class="progress">
+  <div class="screen-progress">
 
-    <span class="progress-number">
-      <b id="currentNumber">01</b>
-      <i>/</i>
-      <span>07</span>
+    <span id="currentScreen">
+      01
     </span>
 
-    <div class="progress-dots">
-
-      <button data-target="0" class="active"></button>
-      <button data-target="1"></button>
-      <button data-target="2"></button>
-      <button data-target="3"></button>
-      <button data-target="4"></button>
-      <button data-target="5"></button>
-      <button data-target="6"></button>
-
+    <div class="progress-track">
+      <span id="progressFill"></span>
     </div>
+
+    <span>
+      06
+    </span>
 
   </div>
 
 
-  <!-- =====================================================
-         EXPERIENCIA
-    ====================================================== -->
-
-  <main id="experience">
+  <main>
 
 
-    <!-- =================================================
-             01 · INICIO
-        ================================================== -->
+    <!-- =====================================================
+     01 · PORTADA
+===================================================== -->
 
-    <section class="screen hero-screen" data-index="0">
-
-      <div class="hero-bg"></div>
-
-      <div class="hero-overlay"></div>
-
-      <div class="hero-light"></div>
+    <section class="screen cover" data-screen="0">
 
 
-      <!-- Estrellas -->
+      <!-- Papel decorativo -->
 
-      <span class="spark spark-a">✦</span>
-      <span class="spark spark-b">✧</span>
-      <span class="spark spark-c">✦</span>
-      <span class="spark spark-d">✧</span>
+      <div class="paper-grain"></div>
 
 
-      <div class="hero-content">
+      <!-- Flores -->
+
+      <div class="botanical botanical-a">
+        <span></span>
+        <span></span>
+        <span></span>
+        <i></i>
+      </div>
+
+      <div class="botanical botanical-b">
+        <span></span>
+        <span></span>
+        <span></span>
+        <i></i>
+      </div>
 
 
-        <div class="hero-top reveal-up">
+      <!-- Pétalos -->
 
-          <span>
-            INVITACIÓN A NUESTRO MATRIMONIO
-          </span>
+      <div class="petals petals-cover">
 
-        </div>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+
+      </div>
+
+
+      <div class="cover-content">
+
+
+        <span class="micro-title">
+          ESTÁS CORDIALMENTE INVITADO A LA BODA DE
+        </span>
 
 
         <h1 class="names">
 
-          <span class="name name-left">
+          <span>
             Alexander
           </span>
 
-          <strong>
+          <small>
             &
-          </strong>
+          </small>
 
-          <span class="name name-right">
+          <span>
             Luz Clara
           </span>
 
         </h1>
 
 
-        <div class="date-info reveal-up">
-
-          <strong>
-            5 DE SEPTIEMBRE
-          </strong>
-
-          <span>|</span>
-
-          <strong>
-            17:00 HRS.
-          </strong>
-
-        </div>
-
-
-        <p class="ceremony-label reveal-up">
-          IGLESIA · CEREMONIA
-        </p>
-
-
-        <!--
-                    ZONA TÁCTIL INVISIBLE
-
-                    100% WIDTH
-                    50% HEIGHT
-
-                    Sirve para activar el audio
-                    mediante el primer gesto.
-                -->
-
-        <div class="audio-zone" id="audioZone"></div>
-
-
-        <!-- Indicador -->
-
-        <div class="start-hint">
+        <div class="cover-date">
 
           <span>
-            DESLIZA PARA COMENZAR
+            05
           </span>
 
-          <div class="start-arrow">
-            ↓
+          <div>
+            SEPTIEMBRE
+            <b>2026</b>
           </div>
 
         </div>
 
+
+        <!-- CARTA -->
+
+        <div class="invitation-card" id="invitationCard">
+
+          <div class="card-glow"></div>
+
+          <div class="card-seal">
+
+            <span>
+              A
+            </span>
+
+          </div>
+
+
+          <div class="card-open">
+
+            <span>
+              ABRIR
+            </span>
+
+            <strong>
+              INVITACIÓN
+            </strong>
+
+            <i>
+              ↓
+            </i>
+
+          </div>
+
+        </div>
+
+
+        <p class="reserved">
+
+          Hemos reservado
+
+          <strong>
+            1
+          </strong>
+
+          lugar en tu honor.
+
+        </p>
+
+
+        <div class="touch-hint">
+
+          <span></span>
+
+          TOCA LA CARTA
+
+          <span></span>
+
+        </div>
+
       </div>
+
 
     </section>
 
 
-    <!-- =================================================
-             02 · HISTORIA
-        ================================================== -->
+    <!-- =====================================================
+     02 · NOS CASAMOS
+===================================================== -->
 
-    <section class="screen story-screen" data-index="1">
-
-      <!-- Decoración -->
-
-      <div class="floating-stars">
-
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-        <span>✧</span>
-
-      </div>
+    <section class="screen wedding" data-screen="1">
 
 
-      <div class="story-photo photo-right">
-
-        <img src="img/foto1.jpeg" alt="Alexander y Luz Clara" loading="eager">
-
-        <span class="photo-border"></span>
-        <span class="photo-shine"></span>
-
-      </div>
+      <div class="paper-grain"></div>
 
 
-      <div class="story-content">
+      <div class="wedding-top">
 
-        <span class="section-label reveal-left">
+        <span class="section-number">
+          02
+        </span>
+
+        <span class="micro-title">
           NUESTRA HISTORIA
+        </span>
+
+      </div>
+
+
+      <div class="wedding-title">
+
+        <span>
+          Y así comienza
+        </span>
+
+        <h2>
+          Nos casamos
+        </h2>
+
+      </div>
+
+
+      <!-- FOTO -->
+
+      <div class="hero-photo">
+
+        <div class="photo-frame-top"></div>
+
+        <img src="img/foto1.jpeg" alt="Alexander y Luz Clara" loading="lazy">
+
+        <div class="photo-shine"></div>
+
+        <div class="photo-frame-bottom"></div>
+
+      </div>
+
+
+      <!-- VERSÍCULO -->
+
+      <div class="verse">
+
+        <span class="verse-line"></span>
+
+        <p>
+
+          “El amor nunca se da por vencido,
+          jamás pierde la fe, siempre tiene
+          esperanza y se mantiene firme
+          en toda circunstancia.”
+
+        </p>
+
+        <strong>
+          1 CORINTIOS 13:7
+        </strong>
+
+      </div>
+
+
+      <div class="scroll-cue">
+
+        <span>
+          SIGUE
+        </span>
+
+        <i>
+          ↓
+        </i>
+
+      </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+     03 · BENDICIÓN
+===================================================== -->
+
+    <section class="screen blessing" data-screen="2">
+
+
+      <div class="paper-grain"></div>
+
+
+      <div class="floating-leaves">
+
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+
+      </div>
+
+
+      <div class="blessing-ornament">
+
+        <span>♧</span>
+
+      </div>
+
+
+      <div class="blessing-content">
+
+
+        <span class="micro-title">
+          CON LA BENDICIÓN DE DIOS
         </span>
 
 
         <h2>
 
-          <span class="title-left">
-            Dos historias,
-          </span>
-
-          <em class="title-right">
-            un mismo camino.
+          y nuestros
+          <em>
+            queridos padres
           </em>
 
         </h2>
 
 
-        <p class="reveal-left">
+        <div class="parents">
 
-          Hoy queremos comenzar juntos
-          una nueva aventura y compartir
-          este día con quienes forman
-          parte de nuestra vida.
+
+          <div class="parents-side">
+
+            <span>
+              PADRES DEL NOVIO
+            </span>
+
+            <strong>
+              Fructuoso Peña Sandoval
+            </strong>
+
+            <strong>
+              Leona Hidalgo Alvarado
+            </strong>
+
+          </div>
+
+
+          <div class="gold-divider"></div>
+
+
+          <div class="parents-side">
+
+            <span>
+              PADRES DE LA NOVIA
+            </span>
+
+            <strong>
+              Victor Arnez García
+            </strong>
+
+            <strong>
+              Emma Peredo Zurita †
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="rings">
+
+          <div class="ring ring-one"></div>
+          <div class="ring ring-two"></div>
+
+        </div>
+
+
+        <p class="invitation-message">
+
+          Tenemos el agrado de invitarte
+          <br>
+          a nuestra boda.
 
         </p>
 
+
+        <div class="date-display">
+
+          <span>
+            SEPTIEMBRE
+          </span>
+
+          <strong>
+            05
+          </strong>
+
+          <small>
+            SÁBADO · 2026
+          </small>
+
+        </div>
+
+
       </div>
 
 
-      <div class="continue-hint">
+      <div class="scroll-cue">
 
         <span>
-          DESLIZA PARA CONTINUAR
+          SIGUE
         </span>
 
-        <strong>
+        <i>
           ↓
-        </strong>
+        </i>
 
       </div>
+
 
     </section>
 
 
-    <!-- =================================================
-             03 · IGLESIA
-        ================================================== -->
+    <!-- =====================================================
+     04 · CEREMONIA
+===================================================== -->
 
-    <section class="screen church-screen" data-index="2">
-
-      <div class="church-bg"></div>
-
-      <div class="church-overlay"></div>
+    <section class="screen ceremony" data-screen="3">
 
 
-      <!-- Estrellas que caen -->
+      <div class="ceremony-background"></div>
 
-      <div class="falling-stars">
+      <div class="ceremony-overlay"></div>
 
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
+
+      <div class="gold-dust">
+
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
 
       </div>
 
 
-      <div class="church-content">
-
-        <span class="section-label reveal-up">
-          NUESTRA CEREMONIA
-        </span>
+      <div class="ceremony-content">
 
 
-        <div class="church-cross reveal-up">
+        <div class="church-mark">
           ♰
         </div>
 
 
+        <span class="micro-title">
+          CEREMONIA RELIGIOSA
+        </span>
+
+
         <h2>
 
-          <span class="reveal-left">
-            En la
-          </span>
-
-          <em class="reveal-right">
-            Iglesia
+          El comienzo
+          <em>
+            de siempre
           </em>
 
         </h2>
 
 
-        <p class="church-name reveal-up">
-          COLOMI
-        </p>
+        <div class="ceremony-date">
 
+          <span>
+            05
+          </span>
 
-        <div class="church-info reveal-up">
+          <div>
 
-          <strong>
-            5 DE SEPTIEMBRE
-          </strong>
+            <strong>
+              SEPTIEMBRE
+            </strong>
 
-          <span>·</span>
+            <small>
+              2026
+            </small>
 
-          <strong>
-            17:00 HRS.
-          </strong>
+          </div>
 
         </div>
 
+
+        <div class="countdown-title">
+          FALTAN
+        </div>
+
+
+        <div class="countdown">
+
+
+          <div>
+            <strong id="days">
+              00
+            </strong>
+
+            <span>
+              DÍAS
+            </span>
+          </div>
+
+
+          <div>
+            <strong id="hours">
+              00
+            </strong>
+
+            <span>
+              HORAS
+            </span>
+          </div>
+
+
+          <div>
+            <strong id="minutes">
+              00
+            </strong>
+
+            <span>
+              MINUTOS
+            </span>
+          </div>
+
+
+          <div>
+            <strong id="seconds">
+              00
+            </strong>
+
+            <span>
+              SEGUNDOS
+            </span>
+          </div>
+
+
+        </div>
+
+
+        <div class="ceremony-location">
+
+          <span>
+            13:30 HRS.
+          </span>
+
+          <strong>
+            Parroquia San Isidro
+            <br>
+            de Colomi
+          </strong>
+
+          <a href="https://www.google.com/maps/search/?api=1&query=Parroquia+San+Isidro+de+Colomi" target="_blank"
+            rel="noopener noreferrer">
+            VER UBICACIÓN
+            <b>→</b>
+          </a>
+
+        </div>
+
+
       </div>
 
 
-      <div class="continue-hint continue-light">
+      <div class="scroll-cue light">
 
         <span>
-          DESLIZA PARA CONTINUAR
+          SIGUE
         </span>
 
-        <strong>
+        <i>
           ↓
-        </strong>
+        </i>
 
       </div>
+
 
     </section>
 
 
-    <!-- =================================================
-             04 · CELEBRACIÓN
-        ================================================== -->
+    <!-- =====================================================
+     05 · CELEBRACIÓN
+===================================================== -->
 
-    <section class="screen celebration-screen" data-index="3">
-
-      <div class="celebration-photo photo-left">
-
-        <img src="img/foto2.jpeg" alt="Celebración" loading="lazy">
-
-        <span class="photo-border"></span>
-        <span class="photo-shine"></span>
-
-      </div>
+    <section class="screen celebration" data-screen="4">
 
 
-      <div class="celebration-decoration">
+      <div class="celebration-photo">
 
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
+        <img src="img/foto2.jpeg" alt="Alexander y Luz Clara" loading="lazy">
+
+        <div class="photo-border"></div>
+
+        <div class="photo-light"></div>
 
       </div>
 
 
       <div class="celebration-content">
 
-        <span class="section-label reveal-right">
+
+        <span class="micro-title">
           DESPUÉS DE LA CEREMONIA
         </span>
 
 
-        <h2 class="reveal-right">
+        <h2>
           Acompáñanos
         </h2>
 
 
-        <p class="reveal-right">
+        <p>
 
           Hay momentos que son especiales,
           pero compartirlos con las personas
@@ -482,336 +699,187 @@
         </p>
 
 
-        <div class="venue reveal-right">
+        <div class="venue">
 
-          <small>
+
+          <span>
             NOS VEMOS EN
-          </small>
+          </span>
+
 
           <strong>
-            LOCAL TRANS ROSARIO
+            LOCAL TRANS
+            <br>
+            ROSARIO
           </strong>
 
+
+          <small>
+            19:30 HRS.
+          </small>
+
+
         </div>
 
-
-        <span class="party-time reveal-up">
-          19:30 HRS.
-        </span>
 
       </div>
 
 
-      <div class="continue-hint">
+      <div class="celebration-petals">
+
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+
+      </div>
+
+
+      <div class="scroll-cue">
 
         <span>
-          DESLIZA PARA CONTINUAR
+          SIGUE
         </span>
 
-        <strong>
+        <i>
           ↓
-        </strong>
+        </i>
 
       </div>
+
 
     </section>
 
 
-    <!-- =================================================
-             05 · NUESTROS MOMENTOS
-        ================================================== -->
+    <!-- =====================================================
+     06 · DETALLES
+===================================================== -->
 
-    <section class="screen gallery-screen" data-index="4">
+    <section class="screen details" data-screen="5">
 
 
-      <div class="gallery-stars">
+      <div class="paper-grain"></div>
 
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-        <span>✧</span>
-        <span>✦</span>
-
-      </div>
-
-
-      <div class="gallery-header">
-
-        <span class="section-label reveal-up">
-          NUESTROS MOMENTOS
-        </span>
-
-        <h2 class="reveal-up">
-          Nuestra historia
-        </h2>
-
-      </div>
-
-
-      <!-- FOTO 1 -->
-
-      <article class="gallery-item gallery-item-one">
-
-        <div class="gallery-image">
-
-          <img src="img/foto1.jpeg" alt="Nuestro momento" loading="lazy">
-
-          <span class="gallery-shine"></span>
-
-        </div>
-
-        <div class="gallery-caption">
-
-          <span>01</span>
-
-          <p>
-            Cada momento
-            nos trajo hasta aquí.
-          </p>
-
-        </div>
-
-      </article>
-
-
-      <!-- FOTO 2 -->
-
-      <article class="gallery-item gallery-item-two">
-
-        <div class="gallery-caption">
-
-          <span>02</span>
-
-          <p>
-            Juntos construimos
-            nuestra historia.
-          </p>
-
-        </div>
-
-        <div class="gallery-image">
-
-          <img src="img/foto2.jpeg" alt="Nuestro momento" loading="lazy">
-
-          <span class="gallery-shine"></span>
-
-        </div>
-
-      </article>
-
-
-      <!-- FOTO 3 -->
-
-      <article class="gallery-item gallery-item-three">
-
-        <div class="gallery-image">
-
-          <img src="img/foto3.jpeg" alt="Nuestro momento" loading="lazy">
-
-          <span class="gallery-shine"></span>
-
-        </div>
-
-        <div class="gallery-caption">
-
-          <span>03</span>
-
-          <p>
-            Y lo mejor
-            está por comenzar.
-          </p>
-
-        </div>
-
-      </article>
-
-
-      <div class="continue-hint gallery-hint">
-
-        <span>
-          DESLIZA PARA CONTINUAR
-        </span>
-
-        <strong>
-          ↓
-        </strong>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-             06 · FINAL
-        ================================================== -->
-
-    <section class="screen final-screen" data-index="5">
-
-      <div class="final-bg"></div>
-
-      <div class="final-overlay"></div>
-
-      <div class="final-light"></div>
-
-
-      <span class="final-star final-star-one">
-        ✦
-      </span>
-
-      <span class="final-star final-star-two">
-        ✧
-      </span>
-
-
-      <div class="final-content">
-
-        <span class="section-label reveal-up">
-          NUESTRO PARA SIEMPRE
-        </span>
-
-
-        <h2>
-
-          <span class="reveal-left">
-            Alexander
-          </span>
-
-          <strong class="reveal-up">
-            &
-          </strong>
-
-          <span class="reveal-right">
-            Luz Clara
-          </span>
-
-        </h2>
-
-
-        <div class="final-line"></div>
-
-
-        <p class="reveal-up">
-          Gracias por acompañarnos.
-        </p>
-
-
-        <p class="final-message reveal-up">
-
-          Estaremos muy felices de contar
-          con ustedes y compartir este
-          momento único de nuestras vidas.
-
-        </p>
-
-
-        <span class="heart reveal-up">
-          ♡
-        </span>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-             07 · DETALLES
-        ================================================== -->
-
-    <section class="screen details-screen" data-index="6">
 
       <div class="details-content">
 
-        <span class="section-label reveal-up">
+
+        <span class="micro-title">
           PARA TENER EN CUENTA
         </span>
 
 
-        <h2 class="reveal-up">
+        <h2>
           Detalles
         </h2>
 
 
-        <p class="details-intro reveal-up">
-          Queremos que tengas toda la información
-          necesaria para acompañarnos en este día.
+        <p class="details-intro">
+
+          Todo lo que necesitas saber
+          para acompañarnos en este
+          día tan especial.
+
         </p>
 
 
         <!-- CEREMONIA -->
 
-        <div class="detail-card reveal-left">
+        <article class="detail-card">
+
 
           <div class="detail-icon">
             ♰
           </div>
 
-          <div class="detail-information">
 
-            <small>
+          <div class="detail-info">
+
+            <span>
               CEREMONIA
-            </small>
+            </span>
 
             <strong>
-              5 DE SEPTIEMBRE · 17:00 HRS.
+              05 SEPTIEMBRE · 13:30 HRS.
             </strong>
 
             <p>
-              Iglesia — NOMBRE DE LA IGLESIA
+              Parroquia San Isidro de Colomi
             </p>
 
-            <a href="https://maps.app.goo.gl/KxdCtgfdNoVmad6y9?g_st=ic" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.google.com/maps/search/?api=1&query=Parroquia+San+Isidro+de+Colomi" target="_blank"
+              rel="noopener noreferrer">
+
               VER UBICACIÓN EN MAPS
-              <span>→</span>
+
+              <b>
+                →
+              </b>
+
             </a>
 
           </div>
 
-        </div>
+
+        </article>
 
 
         <!-- CELEBRACIÓN -->
 
-        <div class="detail-card reveal-right">
+        <article class="detail-card">
+
 
           <div class="detail-icon">
             ✦
           </div>
 
-          <div class="detail-information">
 
-            <small>
+          <div class="detail-info">
+
+            <span>
               CELEBRACIÓN
-            </small>
+            </span>
 
             <strong>
-              5 DE SEPTIEMBRE · 19:30 HRS.
+              05 SEPTIEMBRE · 19:30 HRS.
             </strong>
 
             <p>
               Local Trans Rosario
             </p>
 
-            <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.google.com/maps/search/?api=1&query=Local+Trans+Rosario" target="_blank"
+              rel="noopener noreferrer">
+
               VER UBICACIÓN EN MAPS
-              <span>→</span>
+
+              <b>
+                →
+              </b>
+
             </a>
 
           </div>
 
-        </div>
+
+        </article>
 
 
-        <div class="details-footer reveal-up">
+        <div class="final-message">
 
           <span>
-            5 DE SEPTIEMBRE
+            05 · 09 · 2026
           </span>
 
           <strong>
             Alexander & Luz Clara
           </strong>
+
+          <p>
+            Será un honor compartir
+            este momento contigo.
+          </p>
 
           <i>
             ♡
@@ -819,9 +887,12 @@
 
         </div>
 
+
       </div>
 
+
     </section>
+
 
   </main>
 
